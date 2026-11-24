@@ -12,8 +12,8 @@ Computes and exports data/selection_4d_and_stop_stats.json with ZERO hardcoded P
      Frame-0 AA-identity filter applied identically to BOTH sliding-window and paired tests.
   2. Primary gene-level paired Wilcoxon signed-rank tests (inside [-30..+120] vs conserved
      C-term 75 aa) + genome-level cluster-bootstrap SEs + disjoint-pair sensitivity check.
-  3. Zero-confounder 5-frame stop-codon depletion across ALL unique homology-verified
-     intact Arch 1 genomes (n=30, ZERO GC filter, ZERO stop-count filter!):
+  3. Zero-confounder 5-frame stop-codon depletion across all 30 unique canonical-PCQ
+     (FPCQ/TPCQ/SPCQ) intact Arch 1 genomes (ZERO GC filter, ZERO stop-count filter!):
        (a) Paired within-gene exact Wilcoxon signed-rank (+1 vs +2, -0, -1, -2)
        (b) Paired within-gene 1,000-replicate flanking-codon synonymous null preserving
            exact Frame-0 amino-acid sequence and non-overlapping codon usage + Frame -0
