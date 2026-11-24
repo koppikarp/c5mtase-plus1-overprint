@@ -83,7 +83,8 @@ def draw(fig):
     branch(3.65, 10.25, 4.65, 8.72, PAL["plus1"], lw=0.9)
     ax.text(4.62, 8.81, "ML 71% / SH 89.4%", ha="right", va="bottom", fontsize=4.8, fontweight="bold",
             color=PAL["plus1"], bbox=dict(boxstyle="round,pad=0.08", fc="white", ec="none", alpha=0.90), zorder=5)
-    wedge(4.65, 8.72, 0.85, 0.25, PAL["plus1"], "Arch 1 SPCQ/SPCT: Bacillota (n = 6)", tc=PAL["ink"])
+    wedge(4.65, 8.72, 0.85, 0.25, PAL["plus1"], "Arch 1 SPCQ/SPCT: Bacillota (n = 6)",
+          "5 intact Arch 1 + 1 split-TRD/IX/X (GCA_035934735.1)", tc=PAL["ink"])
 
     # Long-branch outlier leaf A1_SPCT_Baci_10645 (n = 1)
     branch(3.65, 10.25, 4.10, 10.85, PAL["plus1"], lw=1.0)

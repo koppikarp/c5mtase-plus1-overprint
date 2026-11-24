@@ -10,12 +10,14 @@ Runs 100% self-contained from repository data files:
 Computes and exports data/selection_4d_and_stop_stats.json with ZERO hardcoded P-values:
   1. Unified whole-gene A/G/P/T 4D-site expected identity (EXP_4D) + consistent 35-80%
      Frame-0 AA-identity filter applied identically to BOTH sliding-window and paired tests.
-  2. Primary non-pseudoreplicated gene-level paired Wilcoxon signed-rank tests
-     (inside [-30..+120] vs conserved C-term 75 aa) + genome-level cluster-bootstrap 95% CIs.
-  3. Non-circular 5-frame stop-codon depletion on homology-selected low-GC (GC3_in <= 0.38)
-     Arch 1 loci (ZERO stop-count filter!):
-       (a) Paired within-gene Wilcoxon signed-rank (+1 vs +2, -0, -1, -2)
-       (b) 1:1 GC3-matched homology-negative controls (ZERO stop-count filter!)
+  2. Primary gene-level paired Wilcoxon signed-rank tests (inside [-30..+120] vs conserved
+     C-term 75 aa) + genome-level cluster-bootstrap SEs + disjoint-pair sensitivity check.
+  3. Zero-confounder 5-frame stop-codon depletion across ALL unique homology-verified
+     intact Arch 1 genomes (n=30, ZERO GC filter, ZERO stop-count filter!):
+       (a) Paired within-gene exact Wilcoxon signed-rank (+1 vs +2, -0, -1, -2)
+       (b) Paired within-gene 1,000-replicate flanking-codon synonymous null preserving
+           exact Frame-0 amino-acid sequence and non-overlapping codon usage + Frame -0
+           TTA/CTA vs TCA stop-shadowing decomposition.
   4. Non-pseudoreplicated +1 amino-acid preservation at synonymous Frame-0 4D substitutions
      (gene-level Mann-Whitney U + disjoint-pairs check) + locked-3rd-base MSA audit.
 """
@@ -424,74 +426,221 @@ def main():
     print(f"  Between-group gene-level MWU (Arch1 T/SPCQ vs Ctrl): IN excess P={tspcq_vs_ctrl_in_p:.2e} | (IN-OUT) delta P={tspcq_vs_ctrl_delta_p:.2e}")
 
     # ------------------------------------------------------------------
-    # TEST 3: NON-CIRCULAR 5-FRAME STOP-CODON DEPLETION (ZERO STOP FILTER!)
+    # TEST 2 SENSITIVITY: STRICTLY DISJOINT NON-OVERLAPPING PAIRS (ZERO GENOME REUSE)
+    # ------------------------------------------------------------------
+    def _disjoint_4d_sensitivity(grp_cases, grp_ctrls, n_trials=200, seed=7):
+        def _collect_pairs(grp):
+            prs = []
+            for i in range(len(grp)):
+                for j in range(i + 1, len(grp)):
+                    if grp[i]["acc"] == grp[j]["acc"]:
+                        continue
+                    h1, n1, p1 = grp[i]["hprot"], grp[i]["hnt"], grp[i]["pcq"]
+                    h2, n2, p2 = grp[j]["hprot"], grp[j]["hnt"], grp[j]["pcq"]
+                    exp_g = lib.whole_gene_4d_exp(h1, n1, h2, n2)
+                    lo1, hi1 = max(0, p1 - 30), min(len(h1), p1 + 120)
+                    lo2, hi2 = max(0, p2 - 30), min(len(h2), p2 + 120)
+                    aa_in, _, exc_in, n4d_in, _, _ = _align_4d_region(
+                        h1[lo1:hi1], n1[lo1 * 3:hi1 * 3], h2[lo2:hi2], n2[lo2 * 3:hi2 * 3], exp_g
+                    )
+                    aa_out, _, exc_out, n4d_out, _, _ = _align_4d_region(
+                        h1[-75:], n1[(len(h1) - 75) * 3:], h2[-75:], n2[(len(h2) - 75) * 3:], exp_g
+                    )
+                    if n4d_in >= 5 and n4d_out >= 5 and 0.35 <= aa_in <= 0.80 and 0.30 <= aa_out <= 0.80:
+                        prs.append((i, j, aa_in, exc_in, exc_out))
+            return prs
+
+        p_case = _collect_pairs(grp_cases)
+        p_ctrl = _collect_pairs(grp_ctrls)
+        # Canonical greedy disjoint matching centered at 55% AA-ID
+        def _greedy(prs):
+            used, dj = set(), []
+            for i, j, aa_in, ei, eo in sorted(prs, key=lambda x: abs(x[2] - 0.55)):
+                if i not in used and j not in used:
+                    used.add(i); used.add(j); dj.append((ei, eo))
+            return dj
+
+        dj_c = _greedy(p_case)
+        dj_k = _greedy(p_ctrl)
+        _, p_greedy_w = stats.wilcoxon([x[0] for x in dj_c], [x[1] for x in dj_c], alternative="greater", method="exact")
+        _, p_greedy_mwu = stats.mannwhitneyu([x[0] for x in dj_c], [x[0] for x in dj_k], alternative="greater")
+
+        rng_d = np.random.default_rng(seed)
+        trial_ps, trial_in_gt_out = [], []
+        for _ in range(n_trials):
+            perm = rng_d.permutation(len(p_case))
+            used, dj = set(), []
+            for k in perm:
+                i, j, _, ei, eo = p_case[k]
+                if i not in used and j not in used:
+                    used.add(i); used.add(j); dj.append((ei, eo))
+            if len(dj) >= 5:
+                trial_ps.append(float(stats.wilcoxon([x[0] for x in dj], [x[1] for x in dj], alternative="greater", method="exact").pvalue))
+                trial_in_gt_out.append(sum(a > b for a, b in dj) / len(dj))
+        return {
+            "greedy_n_case_pairs": len(dj_c),
+            "greedy_n_ctrl_pairs": len(dj_k),
+            "greedy_in_gt_out": int(sum(a > b for a, b in dj_c)),
+            "greedy_med_in_excess": round(float(np.median([x[0] for x in dj_c])), 4),
+            "greedy_med_out_excess": round(float(np.median([x[1] for x in dj_c])), 4),
+            "greedy_wilcoxon_p_greater": float(p_greedy_w),
+            "greedy_vs_ctrl_in_mwu_p_greater": float(p_greedy_mwu),
+            "random_matchings_n": len(trial_ps),
+            "random_matchings_median_p_greater": round(float(np.median(trial_ps)), 4),
+            "random_matchings_median_frac_in_gt_out": round(float(np.median(trial_in_gt_out)), 4),
+        }
+
+    disjoint_4d = _disjoint_4d_sensitivity(fpcq_low, ctrl_4d)
+    print(
+        f"  Disjoint-pair 4D check (zero genome reuse): {disjoint_4d['greedy_in_gt_out']}/{disjoint_4d['greedy_n_case_pairs']} IN>OUT "
+        f"(Wilcoxon 1s P={disjoint_4d['greedy_wilcoxon_p_greater']:.4f}; 200 random matchings med P={disjoint_4d['random_matchings_median_p_greater']:.4f}; "
+        f"vs disjoint ctrls IN MWU 1s P={disjoint_4d['greedy_vs_ctrl_in_mwu_p_greater']:.2e})"
+    )
+
+    # ------------------------------------------------------------------
+    # TEST 3: ZERO-CONFOUNDER 5-FRAME STOP-CODON DEPLETION
+    # (ALL UNIQUE INTACT ARCH 1 GENOMES, ZERO GC & ZERO STOP FILTER,
+    #  WITHIN-GENE FLANKING-CODON SYNONYMOUS NULL!)
     # ------------------------------------------------------------------
     print("\n" + "=" * 105)
-    print("TEST 3: NON-CIRCULAR 5-FRAME STOP-CODON DEPLETION (HOMOLOGY-SELECTED, GC3_in <= 0.38)")
+    print("TEST 3: ZERO-CONFOUNDER 5-FRAME STOP PURGING (ALL UNIQUE INTACT ARCH 1 GENOMES + FLANKING-CODON NULL)")
     print("=" * 105)
-    # Select Arch 1 cases strictly by homology + low GC3_in <= 0.38 (ZERO stop-count filter!)
-    low_cases = uniq_acc([
-        c for c in ov
-        if c.get("refined_arch") == "Arch1_intact" and c["gc3_in"] <= 0.38
-    ])
-    # Match 1:1 to nearest-GC3 homology-negative controls (ZERO stop-count filter!)
-    pool_ctrls = [c for c in ctrls_all if c["gc3_in"] <= 0.45]
-    avail = list(range(len(pool_ctrls)))
-    matched_ctrls = []
-    for cs in sorted(low_cases, key=lambda x: x["gc3_in"]):
-        best_idx = min(avail, key=lambda k: abs(pool_ctrls[k]["gc3_in"] - cs["gc3_in"]))
-        avail.remove(best_idx)
-        matched_ctrls.append(pool_ctrls[best_idx])
 
-    gc3_cases = [c["gc3_in"] for c in low_cases]
-    gc3_mctrls = [c["gc3_in"] for c in matched_ctrls]
-    _, gc3_mwu_p = stats.mannwhitneyu(gc3_cases, gc3_mctrls, alternative="two-sided")
-    print(f"  Cases (homology-selected Arch1, GC3<=0.38): n={len(low_cases)}, med GC3={np.median(gc3_cases):.3f} [{min(gc3_cases):.3f}-{max(gc3_cases):.3f}]")
-    print(f"  1:1 GC3-matched homology-negative controls: n={len(matched_ctrls)}, med GC3={np.median(gc3_mctrls):.3f} [{min(gc3_mctrls):.3f}-{max(gc3_mctrls):.3f}] (GC3 MWU P={gc3_mwu_p:.3f})")
+    def _whole_all_gc3(rec: dict) -> float:
+        h = rec["hnt"]
+        return sum(h[i + 2] in "GC" for i in range(0, len(h) - 2, 3)) / max(1, len(h) // 3)
 
-    frames = ("+1", "+2", "-0", "-1", "-2")
-    case_stops = {fr: [] for fr in frames}
-    ctrl_stops = {fr: [] for fr in frames}
-    for c in low_cases:
-        d = lib.count_5frames_stops(c["hnt"], c["pcq"], rel_lo=-25, rel_hi=110)
-        for fr in frames:
-            case_stops[fr].append(d[fr])
-    for c in matched_ctrls:
-        tbl = lib.CODON_TABLE.copy()
-        if c.get("use_t4"):
-            tbl["TGA"] = "W"
-        d = lib.count_5frames_stops(c["hnt"], c["pcq"], rel_lo=-25, rel_hi=110, table=tbl)
-        for fr in frames:
-            ctrl_stops[fr].append(d[fr])
+    def _run_flanking_null_stop_test(cohort: List[dict], n_reps: int = 1000, seed: int = 42) -> dict:
+        rng_s = np.random.default_rng(seed)
+        frames_t = ("+1", "+2", "-0", "-1", "-2")
+        obs_d = {fr: [] for fr in frames_t}
+        null_d = {fr: [] for fr in frames_t}
+        tta_cta_obs, tta_cta_null, tca_obs, tca_null = [], [], [], []
+        all_gc3s = [_whole_all_gc3(c) for c in cohort]
 
-    within_gene_wilcoxon = {}
-    case_vs_ctrl_mwu = {}
-    for fr in frames:
-        _, p_cc = stats.mannwhitneyu(case_stops[fr], ctrl_stops[fr], alternative="two-sided")
-        _, p_cc_less = stats.mannwhitneyu(case_stops[fr], ctrl_stops[fr], alternative="less")
-        case_vs_ctrl_mwu[fr] = {
-            "case_median": float(np.median(case_stops[fr])),
-            "case_mean": round(float(np.mean(case_stops[fr])), 2),
-            "ctrl_median": float(np.median(ctrl_stops[fr])),
-            "ctrl_mean": round(float(np.mean(ctrl_stops[fr])), 2),
-            "mwu_p_twosided": float(p_cc),
-            "mwu_p_less": float(p_cc_less),
-        }
-        if fr != "+1":
-            _, p_wg = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="less", method="exact")
-            _, p_wg_2s = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="two-sided", method="exact")
-            within_gene_wilcoxon[fr] = {
-                "p_less": float(p_wg),
-                "p_twosided": float(p_wg_2s),
-                "n_pairs": len(low_cases),
-                "n_plus1_lt_other": int(sum(a < b for a, b in zip(case_stops["+1"], case_stops[fr]))),
+        for c in cohort:
+            hnt, pcq = c["hnt"], c["pcq"]
+            n_cod = len(hnt) // 3
+            w_lo, w_hi = max(0, pcq - 25), min(n_cod, pcq + 110)
+            flank_pool = defaultdict(list)
+            all_pool = defaultdict(list)
+            for k in range(n_cod):
+                cd = hnt[k * 3:k * 3 + 3]
+                if len(cd) == 3 and "N" not in cd:
+                    aa = lib.CODON_TABLE.get(cd, "X")
+                    if aa not in ("*", "X"):
+                        all_pool[aa].append(cd)
+                        if k < pcq - 35 or k > pcq + 125:
+                            flank_pool[aa].append(cd)
+            d_obs = lib.count_5frames_stops(hnt, pcq, rel_lo=-25, rel_hi=110)
+            for fr in frames_t:
+                obs_d[fr].append(int(d_obs[fr]))
+            w_cods = [hnt[k * 3:k * 3 + 3] for k in range(w_lo, w_hi)]
+            tta_cta_obs.append(int(sum(cd in ("TTA", "CTA") for cd in w_cods)))
+            tca_obs.append(int(sum(cd == "TCA" for cd in w_cods)))
+            choices = [
+                flank_pool[lib.CODON_TABLE.get(cd, "X")] or all_pool[lib.CODON_TABLE.get(cd, "X")] or [cd]
+                for cd in w_cods
+            ]
+            reps = {fr: [] for fr in frames_t}
+            r_tc, r_tca = [], []
+            for _ in range(n_reps):
+                sc = [ch[rng_s.integers(len(ch))] for ch in choices]
+                sd = "".join(sc)
+                r_tc.append(sum(cd in ("TTA", "CTA") for cd in sc))
+                r_tca.append(sum(cd == "TCA" for cd in sc))
+                rc = lib.revcomp(sd)
+                reps["+1"].append(lib.translate(sd, offset=1).count("*"))
+                reps["+2"].append(lib.translate(sd, offset=2).count("*"))
+                reps["-0"].append(lib.translate(rc, offset=0).count("*"))
+                reps["-1"].append(lib.translate(rc, offset=1).count("*"))
+                reps["-2"].append(lib.translate(rc, offset=2).count("*"))
+            for fr in frames_t:
+                null_d[fr].append(round(float(np.mean(reps[fr])), 4))
+            tta_cta_null.append(round(float(np.mean(r_tc)), 4))
+            tca_null.append(round(float(np.mean(r_tca)), 4))
+
+        wg_wilcox = {}
+        obs_vs_null = {}
+        for fr in frames_t:
+            _, p_less = stats.wilcoxon(obs_d[fr], null_d[fr], alternative="less", method="exact")
+            _, p_2s = stats.wilcoxon(obs_d[fr], null_d[fr], alternative="two-sided", method="exact")
+            obs_vs_null[fr] = {
+                "obs_median": float(np.median(obs_d[fr])),
+                "obs_mean": round(float(np.mean(obs_d[fr])), 2),
+                "null_median": round(float(np.median(null_d[fr])), 2),
+                "null_mean": round(float(np.mean(null_d[fr])), 2),
+                "n_obs_lt_null": int(sum(a < b for a, b in zip(obs_d[fr], null_d[fr]))),
+                "wilcoxon_p_less": float(p_less),
+                "wilcoxon_p_twosided": float(p_2s),
             }
+            if fr != "+1":
+                _, p_wg = stats.wilcoxon(obs_d["+1"], obs_d[fr], alternative="less", method="exact")
+                _, p_wg_2s = stats.wilcoxon(obs_d["+1"], obs_d[fr], alternative="two-sided", method="exact")
+                wg_wilcox[fr] = {
+                    "p_less": float(p_wg),
+                    "p_twosided": float(p_wg_2s),
+                    "n_pairs": len(cohort),
+                    "n_plus1_lt_other": int(sum(a < b for a, b in zip(obs_d["+1"], obs_d[fr]))),
+                }
+
+        _, p_tc_less = stats.wilcoxon(tta_cta_obs, tta_cta_null, alternative="less", method="exact")
+        _, p_tc_2s = stats.wilcoxon(tta_cta_obs, tta_cta_null, alternative="two-sided", method="exact")
+        _, p_tca_2s = stats.wilcoxon(tca_obs, tca_null, alternative="two-sided", method="exact")
+
+        return {
+            "window_rel_pcq": [-25, 110],
+            "flanking_exclude_rel_pcq": [-35, 125],
+            "n_null_replicates": n_reps,
+            "n_cases": len(cohort),
+            "case_accs": [c["acc"] for c in cohort],
+            "whole_all_codon_gc3_median": round(float(np.median(all_gc3s)), 4),
+            "cases": obs_d,
+            "flanking_null": null_d,
+            "within_gene_wilcoxon_plus1_lt_other": wg_wilcox,
+            "obs_vs_flanking_null_wilcoxon": obs_vs_null,
+            "frame_minus0_shadow_decomposition": {
+                "tta_cta_obs_median": float(np.median(tta_cta_obs)),
+                "tta_cta_obs_mean": round(float(np.mean(tta_cta_obs)), 2),
+                "tta_cta_null_median": round(float(np.median(tta_cta_null)), 2),
+                "tta_cta_null_mean": round(float(np.mean(tta_cta_null)), 2),
+                "tta_cta_wilcoxon_p_less": float(p_tc_less),
+                "tta_cta_wilcoxon_p_twosided": float(p_tc_2s),
+                "tca_obs_median": float(np.median(tca_obs)),
+                "tca_obs_mean": round(float(np.mean(tca_obs)), 2),
+                "tca_null_median": round(float(np.median(tca_null)), 2),
+                "tca_null_mean": round(float(np.mean(tca_null)), 2),
+                "tca_wilcoxon_p_twosided": float(p_tca_2s),
+            },
+        }
+
+    all_arch1_unique = uniq_acc([c for c in ov if c.get("refined_arch") == "Arch1_intact"])
+    low_allgc3_arch1 = [c for c in all_arch1_unique if _whole_all_gc3(c) <= 0.45]
+
+    stop_all = _run_flanking_null_stop_test(all_arch1_unique, n_reps=1000, seed=42)
+    stop_lowgc = _run_flanking_null_stop_test(low_allgc3_arch1, n_reps=1000, seed=42)
+
+    print(f"  ALL unique intact Arch 1 genomes (zero GC filter, zero stop filter): n={stop_all['n_cases']}, med all-codon GC3={stop_all['whole_all_codon_gc3_median']:.3f}")
+    for fr in ("+1", "+2", "-0", "-1", "-2"):
+        r = stop_all["obs_vs_flanking_null_wilcoxon"][fr]
+        wg_str = f" | Within-gene (+1 < {fr}) 1s P={stop_all['within_gene_wilcoxon_plus1_lt_other'][fr]['p_less']:.2e}" if fr != "+1" else ""
         print(
-            f"    Frame {fr:2s}: CASE med={np.median(case_stops[fr]):4.1f} (mean={np.mean(case_stops[fr]):4.1f}) | "
-            f"CTRL med={np.median(ctrl_stops[fr]):4.1f} (mean={np.mean(ctrl_stops[fr]):4.1f}) | "
-            f"Case-vs-Ctrl MWU P(2s)={p_cc:.2e}"
-            + (f" | Within-gene (+1 < {fr}) Wilcoxon P={within_gene_wilcoxon[fr]['p_less']:.2e}" if fr != "+1" else "")
+            f"    Frame {fr:2s}: OBS med={r['obs_median']:4.1f} (mean={r['obs_mean']:4.2f}) | "
+            f"NULL med={r['null_median']:4.1f} (mean={r['null_mean']:4.2f}) | {r['n_obs_lt_null']}/{stop_all['n_cases']} < null | "
+            f"vsNull 1s P={r['wilcoxon_p_less']:.2e} (2s={r['wilcoxon_p_twosided']:.2e}){wg_str}"
         )
+    sd0 = stop_all["frame_minus0_shadow_decomposition"]
+    print(
+        f"    Frame -0 shadow check: TTA/CTA (creates +1 stops) OBS={sd0['tta_cta_obs_mean']:.2f} vs NULL={sd0['tta_cta_null_mean']:.2f} (1s P={sd0['tta_cta_wilcoxon_p_less']:.2e}) | "
+        f"TCA (no +1 shadow) OBS={sd0['tca_obs_mean']:.2f} vs NULL={sd0['tca_null_mean']:.2f} (2s P={sd0['tca_wilcoxon_p_twosided']:.3f})"
+    )
+    print(
+        f"  Low all-codon GC3 (<=0.45, n={stop_lowgc['n_cases']}) sensitivity: Frame +1 OBS={stop_lowgc['obs_vs_flanking_null_wilcoxon']['+1']['obs_median']:.1f} "
+        f"vs NULL={stop_lowgc['obs_vs_flanking_null_wilcoxon']['+1']['null_median']:.1f} "
+        f"({stop_lowgc['obs_vs_flanking_null_wilcoxon']['+1']['n_obs_lt_null']}/{stop_lowgc['n_cases']}, 1s P={stop_lowgc['obs_vs_flanking_null_wilcoxon']['+1']['wilcoxon_p_less']:.2e})"
+    )
+
+    low_cases = uniq_acc([c for c in ov if c.get("refined_arch") == "Arch1_intact" and c["gc3_in"] <= 0.38])
 
     # ------------------------------------------------------------------
     # TEST 4: +1 AA PRESERVATION (GENE-LEVEL & DISJOINT PAIRS MWU!) + LOCKED 3RD BASES
@@ -536,26 +685,15 @@ def main():
             "exp_4d_definition": "Whole-gene A/G/P/T third-position base-composition baseline applied identically to paired and sliding-window comparisons",
             "aa_id_filter": {"inside_min": 0.35, "inside_max": 0.80, "outside_min": 0.30, "outside_max": 0.80},
             "stop_window_rel_pcq": [-25, 110],
-            "stop_selection_rule": "Strictly homology-selected Arch1_intact loci (GC3_in <= 0.38) and 1:1 nearest-GC3 homology-negative controls; ZERO stop-count filter applied.",
+            "stop_selection_rule": "All unique homology-verified Arch1_intact genomes (n=30, zero GC filter, zero stop-count filter), compared against each gene's own 1,000-replicate flanking-codon synonymous null preserving exact Frame-0 amino-acid sequence and non-overlapping codon usage.",
             "bootstrap_replicates": 2000,
         },
         "fpcq_overprinted": sub_fpcq,
         "tspcq_overprinted": sub_tspcq,
         "ctrl_no_plus1": sub_ctrl,
-        "stop_purge_5frames": {
-            "window_rel_pcq": [-25, 110],
-            "n_cases": len(low_cases),
-            "n_ctrls": len(matched_ctrls),
-            "case_accs": [c["acc"] for c in low_cases],
-            "ctrl_accs": [c["acc"] for c in matched_ctrls],
-            "case_gc3_median": round(float(np.median(gc3_cases)), 4),
-            "ctrl_gc3_median": round(float(np.median(gc3_mctrls)), 4),
-            "gc3_balance_mwu_p": round(float(gc3_mwu_p), 4),
-            "cases": case_stops,
-            "ctrls": ctrl_stops,
-            "within_gene_wilcoxon_plus1_lt_other": within_gene_wilcoxon,
-            "case_vs_ctrl_mwu": case_vs_ctrl_mwu,
-        },
+        "disjoint_4d_sensitivity": disjoint_4d,
+        "stop_purge_5frames": stop_all,
+        "stop_purge_5frames_low_allgc3": stop_lowgc,
         "plus1_aa_preservation": {
             "test_name": "Mann-Whitney U test (gene-level independent means + disjoint non-overlapping pairs sensitivity check)",
             "gene_level": {
@@ -586,8 +724,12 @@ def main():
             "fpcq_vs_ctrl_delta_mwu_p": float(fpcq_vs_ctrl_delta_p),
             "tspcq_vs_ctrl_in_excess_mwu_p": float(tspcq_vs_ctrl_in_p),
             "tspcq_vs_ctrl_delta_mwu_p": float(tspcq_vs_ctrl_delta_p),
-            "stop_purge_within_gene_max_p": max(v["p_less"] for v in within_gene_wilcoxon.values()),
-            "stop_purge_plus1_case_vs_ctrl_mwu_p": case_vs_ctrl_mwu["+1"]["mwu_p_twosided"],
+            "stop_purge_within_gene_max_p_1s": max(v["p_less"] for v in stop_all["within_gene_wilcoxon_plus1_lt_other"].values()),
+            "stop_purge_within_gene_max_p_2s": max(v["p_twosided"] for v in stop_all["within_gene_wilcoxon_plus1_lt_other"].values()),
+            "stop_purge_plus1_vs_flanking_null_p_1s": stop_all["obs_vs_flanking_null_wilcoxon"]["+1"]["wilcoxon_p_less"],
+            "stop_purge_plus1_vs_flanking_null_p_2s": stop_all["obs_vs_flanking_null_wilcoxon"]["+1"]["wilcoxon_p_twosided"],
+            "stop_purge_minus0_tta_cta_p_1s": stop_all["frame_minus0_shadow_decomposition"]["tta_cta_wilcoxon_p_less"],
+            "stop_purge_minus0_tca_p_2s": stop_all["frame_minus0_shadow_decomposition"]["tca_wilcoxon_p_twosided"],
             "plus1_aa_preservation_gene_mwu_p": float(p1_mwu_gene_gt),
             "plus1_aa_preservation_gene_mwu_p_2s": float(p1_mwu_gene_2s),
             "plus1_aa_preservation_disjoint_mwu_p": float(p1_mwu_dj_gt),

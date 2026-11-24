@@ -190,12 +190,16 @@ def main():
     # Fitch parsimony on DNMT-rooted Tree 1 (binary +1/domain present vs absent)
     def bin_state(nm):
         c = lib.classify_taxon(nm)
-        return "HAS_CSLS" if c in ("ARCH1_FPCQ", "ARCH1_TPCQ", "ARCH1_SPCQ", "ARCH2", "ARCH3") else "NO_CSLS"
+        return "HAS_CSLS" if c in ("ARCH1_FPCQ", "ARCH1_TPCQ", "ARCH1_SPCQ", "ARCH2", "ARCH2_SPLIT_TRD", "ARCH3") else "NO_CSLS"
 
     fitch_n, fitch_root = fitch_parsimony(t1, bin_state)
     # Inspect the prokaryote ingroup child of root
     prok_node = max(t1.children, key=lambda c: len(c.leaf_names()))
     fitch_prok_n, fitch_prok_root = fitch_parsimony(prok_node, bin_state)
+
+    # Check Bacillota SPCQ/SPCT clade containing SplitTRD_SPCQ_Baci_34735 (GCA_035934735.1)
+    split_trd_set = {"SplitTRD_SPCQ_Baci_34735", "A1_SPCQ_Baci_09825"}
+    split_trd_clade = clade_metrics(t1, lvs1, b1, split_trd_set)
 
     key_supports = {
         "Arch3_monophyly_tree1": clade_metrics(t1, lvs1, b1, a3_set),
@@ -203,6 +207,7 @@ def main():
         "TPCQ_Arch3_superclade_tree1": clade_metrics(t1, lvs1, b1, tpcq_a3_set),
         "Arch2_monophyly_tree1": clade_metrics(t1, lvs1, b1, a2_set),
         "Arch2_parent_clade_tree1": clade_metrics(t1, lvs1, b1, a2_parent_set),
+        "Bacillota_SPCQ_SplitTRD_clade_tree1": split_trd_clade,
         "Arch1_FPCQ_tree2": a1_fpcq_t2_metrics,
         "DPANN_Archaea_in_Bacteria_tree1": arc_metrics,
     }
@@ -271,7 +276,7 @@ def main():
                 grp = "Arch3-Arch3"
             elif "ARCH3" in (c1, c2):
                 grp = "Arch1-Arch3"
-            elif "ARCH2" in (c1, c2):
+            elif c1.startswith("ARCH2") or c2.startswith("ARCH2"):
                 grp = "Arch2-any"
             else:
                 grp = "Arch1-Arch1"

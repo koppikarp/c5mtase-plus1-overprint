@@ -474,6 +474,8 @@ def classify_taxon(name: str) -> str:
         return "OUT_EUK"
     if name.startswith("A3_"):
         return "ARCH3"
+    if name.startswith("SplitTRD_"):
+        return "ARCH2_SPLIT_TRD"
     if name.startswith("A2_"):
         return "ARCH2"
     if name.startswith("A1_TPCQ_"):

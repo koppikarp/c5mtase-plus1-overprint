@@ -60,5 +60,5 @@ def draw(fig):
 
     _box(ax, 5.20, 0.25, 4.55, 2.35, fc="white", ec=PAL["ink"], lw=0.85, r=0.16)
     ax.text(7.48, 2.22, "Outside +1 / controls", ha="center", va="center", fontsize=6.3, fontweight="bold", color=PAL["ink"])
-    ax.text(7.48, 1.25, "F0 3rd base freely drifts\n(neutral baseline)\nExcess 4D ≈ 0;\n~8 stops in +1 frame",
+    ax.text(7.48, 1.25, "F0 3rd base freely drifts\n(neutral baseline)\nExcess 4D ≈ 0;\n~5–7 stops in +1 frame",
             ha="center", va="center", fontsize=5.8, color=PAL["ink"], linespacing=1.35)
