@@ -2300,14 +2300,14 @@
         "n_plus1_lt_other": 12
       },
       "-0": {
-        "p_less": 0.0014988252558711156,
-        "p_twosided": 0.002997650511742231,
+        "p_less": 0.00048828125,
+        "p_twosided": 0.0009765625,
         "n_pairs": 12,
         "n_plus1_lt_other": 11
       },
       "-1": {
-        "p_less": 0.0015957613052594015,
-        "p_twosided": 0.003191522610518803,
+        "p_less": 0.00048828125,
+        "p_twosided": 0.0009765625,
         "n_pairs": 12,
         "n_plus1_lt_other": 11
       },
@@ -2835,7 +2835,7 @@
     "fpcq_vs_ctrl_delta_mwu_p": 6.451922262435988e-07,
     "tspcq_vs_ctrl_in_excess_mwu_p": 0.0008194529919648755,
     "tspcq_vs_ctrl_delta_mwu_p": 0.0032843732092897836,
-    "stop_purge_within_gene_max_p": 0.0015957613052594015,
+    "stop_purge_within_gene_max_p": 0.00048828125,
     "stop_purge_plus1_case_vs_ctrl_mwu_p": 1.5318575258990675e-05,
     "plus1_aa_preservation_gene_mwu_p": 2.4028081603837407e-06,
     "plus1_aa_preservation_gene_mwu_p_2s": 4.805616320767481e-06,

@@ -14,7 +14,7 @@ def draw(fig):
     a2_b, a2_sh = int(round(ks["Arch2_monophyly_tree1"]["ml_boot"])), ks["Arch2_monophyly_tree1"]["sh"]
     a2p_b, a2p_sh = int(round(ks["Arch2_parent_clade_tree1"]["ml_boot"])), ks["Arch2_parent_clade_tree1"]["sh"]
 
-    ax.set_xlim(-0.3, 14.2)
+    ax.set_xlim(-0.3, 14.8)
     ax.set_ylim(-0.6, 12.8)
     ax.axis("off")
 
@@ -97,7 +97,7 @@ def draw(fig):
     badge(4.58, 11.12, f"ML {tp_b}% / SH {tp_sh:.1f}%", PAL["plus1"])
     branch(4.60, 11.00, 5.25, 10.35, PAL["plus1"], lw=1.0)
     wedge(5.25, 10.35, 0.95, 0.33, PAL["plus1"], "Arch 1 TPCQ superclade (n = 22)",
-          "17 TPCQ (P1 dmt, 5/5 UniProt) + 3 phage FPCQ + 2 SPCQ", tc=PAL["plus1"], bold=True)
+          "17 TPCQ (incl. P1 dmt, 5/5 UniProt) + 3 FPCQ + 2 SPCQ", tc=PAL["plus1"], bold=True)
     # DERIVED ARCH 3 nested inside Arch 1 TPCQ (n = 7, ML 97% / SH 99.5%)
     branch(4.60, 11.00, 5.25, 11.58, PAL["arch3"], lw=1.15)
     badge(5.23, 11.70, f"ML {a3_b}% / SH {a3_sh:.1f}%", PAL["arch3"])

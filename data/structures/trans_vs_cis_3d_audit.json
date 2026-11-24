@@ -41,8 +41,8 @@
       365
     ],
     "cterm_core_range": [
-      390,
-      443
+      389,
+      442
     ],
     "cterm_full_range": [
       366,
@@ -50,15 +50,15 @@
     ],
     "r1_kyf_dist": 4.023,
     "r2_kyf_dist": 6.533,
-    "ca_contacts_8A_core": 83,
+    "ca_contacts_8A_core": 85,
     "ca_contacts_8A_full": 186,
-    "heavy_contacts_4_5A_core": 628,
+    "heavy_contacts_4_5A_core": 655,
     "heavy_contacts_4_5A_full": 1151,
     "dna_min_dist_ca": 4.119,
     "dna_min_dist_heavy": 3.497,
     "sah_min_dist_ca": 19.025,
     "sah_min_dist_heavy": 16.704,
-    "cys_min_dist_ca": 28.385
+    "cys_min_dist_ca": 25.46
   },
   "trans_complexes": [
     {
@@ -123,33 +123,33 @@
       "r1_kyf_mean": 3.778,
       "r1_kyf_sd": 0.148,
       "com_dist_vs_cis_5": [
-        2.212,
-        1.979,
-        1.256,
-        1.968,
-        2.202
+        1.444,
+        1.192,
+        0.684,
+        1.212,
+        1.443
       ],
-      "com_dist_vs_cis": 1.923,
-      "com_dist_vs_cis_sd": 0.35,
-      "com_dist_vs_cis_model0": 2.212,
+      "com_dist_vs_cis": 1.195,
+      "com_dist_vs_cis_sd": 0.277,
+      "com_dist_vs_cis_model0": 1.444,
       "docked_rmsd_vs_cis_5": [
-        4.702,
-        4.372,
-        4.625,
-        4.31,
-        4.311
+        2.474,
+        1.905,
+        1.765,
+        1.924,
+        2.256
       ],
-      "docked_rmsd_vs_cis": 4.464,
-      "docked_rmsd_vs_cis_sd": 0.166,
-      "docked_rmsd_vs_cis_model0": 4.702,
+      "docked_rmsd_vs_cis": 2.065,
+      "docked_rmsd_vs_cis_sd": 0.26,
+      "docked_rmsd_vs_cis_model0": 2.474,
       "internal_fold_rmsd_5": [
-        3.478,
-        3.542,
-        3.754,
-        3.515,
-        3.525
+        1.299,
+        1.282,
+        1.271,
+        1.194,
+        1.472
       ],
-      "internal_fold_rmsd_mean": 3.563,
+      "internal_fold_rmsd_mean": 1.304,
       "dna_min_dist_ca_5": [
         2.634,
         2.936,
@@ -310,33 +310,33 @@
       "r1_kyf_mean": 3.692,
       "r1_kyf_sd": 0.041,
       "com_dist_vs_cis_5": [
-        1.475,
-        1.856,
-        1.802,
-        2.02,
-        1.596
+        0.726,
+        1.066,
+        1.094,
+        1.292,
+        0.814
       ],
-      "com_dist_vs_cis": 1.75,
-      "com_dist_vs_cis_sd": 0.193,
-      "com_dist_vs_cis_model0": 1.475,
+      "com_dist_vs_cis": 0.998,
+      "com_dist_vs_cis_sd": 0.204,
+      "com_dist_vs_cis_model0": 0.726,
       "docked_rmsd_vs_cis_5": [
-        4.378,
-        4.384,
-        4.43,
-        4.39,
-        4.148
+        1.657,
+        1.924,
+        1.856,
+        2.081,
+        1.565
       ],
-      "docked_rmsd_vs_cis": 4.346,
-      "docked_rmsd_vs_cis_sd": 0.101,
-      "docked_rmsd_vs_cis_model0": 4.378,
+      "docked_rmsd_vs_cis": 1.817,
+      "docked_rmsd_vs_cis_sd": 0.185,
+      "docked_rmsd_vs_cis_model0": 1.657,
       "internal_fold_rmsd_5": [
-        3.506,
-        3.501,
-        3.547,
-        3.49,
-        3.511
+        1.241,
+        1.346,
+        1.22,
+        1.288,
+        1.22
       ],
-      "internal_fold_rmsd_mean": 3.511,
+      "internal_fold_rmsd_mean": 1.263,
       "dna_min_dist_ca_5": [
         3.766,
         2.997,
@@ -590,33 +590,33 @@
       "r1_kyf_mean": 4.039,
       "r1_kyf_sd": 0.011,
       "com_dist_vs_cis_5": [
-        2.15,
-        2.152,
-        2.331,
-        2.19,
-        2.687
+        2.247,
+        2.292,
+        2.412,
+        2.275,
+        2.763
       ],
-      "com_dist_vs_cis": 2.302,
-      "com_dist_vs_cis_sd": 0.204,
-      "com_dist_vs_cis_model0": 2.15,
+      "com_dist_vs_cis": 2.398,
+      "com_dist_vs_cis_sd": 0.191,
+      "com_dist_vs_cis_model0": 2.247,
       "docked_rmsd_vs_cis_5": [
-        4.247,
-        4.405,
-        4.514,
-        4.359,
-        4.619
+        3.869,
+        4.063,
+        4.142,
+        4.002,
+        4.272
       ],
-      "docked_rmsd_vs_cis": 4.429,
-      "docked_rmsd_vs_cis_sd": 0.128,
-      "docked_rmsd_vs_cis_model0": 4.247,
+      "docked_rmsd_vs_cis": 4.07,
+      "docked_rmsd_vs_cis_sd": 0.135,
+      "docked_rmsd_vs_cis_model0": 3.869,
       "internal_fold_rmsd_5": [
-        2.654,
-        2.602,
-        2.666,
-        2.674,
-        2.795
+        2.32,
+        2.31,
+        2.371,
+        2.382,
+        2.515
       ],
-      "internal_fold_rmsd_mean": 2.678,
+      "internal_fold_rmsd_mean": 2.38,
       "dna_min_dist_ca_5": [
         8.34,
         8.314,
@@ -866,33 +866,33 @@
       "r1_kyf_mean": 3.901,
       "r1_kyf_sd": 0.061,
       "com_dist_vs_cis_5": [
-        7.097,
-        6.835,
-        6.137,
-        6.854,
-        6.777
+        7.227,
+        6.919,
+        5.997,
+        6.823,
+        6.501
       ],
-      "com_dist_vs_cis": 6.74,
-      "com_dist_vs_cis_sd": 0.321,
-      "com_dist_vs_cis_model0": 7.097,
+      "com_dist_vs_cis": 6.693,
+      "com_dist_vs_cis_sd": 0.418,
+      "com_dist_vs_cis_model0": 7.227,
       "docked_rmsd_vs_cis_5": [
-        14.308,
-        13.26,
-        12.549,
-        13.555,
-        12.416
+        14.226,
+        13.181,
+        12.465,
+        13.484,
+        12.336
       ],
-      "docked_rmsd_vs_cis": 13.218,
-      "docked_rmsd_vs_cis_sd": 0.692,
-      "docked_rmsd_vs_cis_model0": 14.308,
+      "docked_rmsd_vs_cis": 13.138,
+      "docked_rmsd_vs_cis_sd": 0.693,
+      "docked_rmsd_vs_cis_model0": 14.226,
       "internal_fold_rmsd_5": [
-        12.245,
-        11.309,
-        10.773,
-        11.604,
-        10.288
+        12.091,
+        11.183,
+        10.682,
+        11.503,
+        10.311
       ],
-      "internal_fold_rmsd_mean": 11.244,
+      "internal_fold_rmsd_mean": 11.154,
       "dna_min_dist_ca_5": [
         6.601,
         6.442,
@@ -1146,33 +1146,33 @@
       "r1_kyf_mean": 3.756,
       "r1_kyf_sd": 0.009,
       "com_dist_vs_cis_5": [
-        2.057,
-        2.153,
-        2.795,
-        2.227,
-        2.391
+        2.209,
+        2.267,
+        2.88,
+        2.391,
+        2.494
       ],
-      "com_dist_vs_cis": 2.325,
-      "com_dist_vs_cis_sd": 0.259,
-      "com_dist_vs_cis_model0": 2.057,
+      "com_dist_vs_cis": 2.448,
+      "com_dist_vs_cis_sd": 0.237,
+      "com_dist_vs_cis_model0": 2.209,
       "docked_rmsd_vs_cis_5": [
-        3.842,
-        3.87,
-        4.353,
-        4.0,
-        4.091
+        3.212,
+        3.209,
+        3.758,
+        3.372,
+        3.451
       ],
-      "docked_rmsd_vs_cis": 4.031,
-      "docked_rmsd_vs_cis_sd": 0.184,
-      "docked_rmsd_vs_cis_model0": 3.842,
+      "docked_rmsd_vs_cis": 3.4,
+      "docked_rmsd_vs_cis_sd": 0.202,
+      "docked_rmsd_vs_cis_model0": 3.212,
       "internal_fold_rmsd_5": [
-        2.645,
-        2.652,
-        2.566,
-        2.66,
-        2.654
+        1.872,
+        1.884,
+        1.809,
+        1.9,
+        1.897
       ],
-      "internal_fold_rmsd_mean": 2.635,
+      "internal_fold_rmsd_mean": 1.872,
       "dna_min_dist_ca_5": [
         7.55,
         7.308,
@@ -1445,33 +1445,33 @@
       "r1_kyf_mean": 24.933,
       "r1_kyf_sd": 7.368,
       "com_dist_vs_cis_5": [
-        22.278,
-        8.187,
-        8.273,
-        20.477,
-        30.118
+        22.146,
+        7.848,
+        7.91,
+        20.187,
+        29.321
       ],
-      "com_dist_vs_cis": 17.867,
-      "com_dist_vs_cis_sd": 8.51,
-      "com_dist_vs_cis_model0": 22.278,
+      "com_dist_vs_cis": 17.482,
+      "com_dist_vs_cis_sd": 8.41,
+      "com_dist_vs_cis_model0": 22.146,
       "docked_rmsd_vs_cis_5": [
-        26.209,
-        26.368,
-        26.698,
-        36.383,
-        42.892
+        26.106,
+        26.161,
+        26.489,
+        36.754,
+        42.425
       ],
-      "docked_rmsd_vs_cis": 31.71,
-      "docked_rmsd_vs_cis_sd": 6.794,
-      "docked_rmsd_vs_cis_model0": 26.209,
+      "docked_rmsd_vs_cis": 31.587,
+      "docked_rmsd_vs_cis_sd": 6.777,
+      "docked_rmsd_vs_cis_model0": 26.106,
       "internal_fold_rmsd_5": [
-        5.969,
-        3.064,
-        2.909,
-        5.615,
-        5.976
+        6.334,
+        2.519,
+        2.57,
+        5.49,
+        5.807
       ],
-      "internal_fold_rmsd_mean": 4.707,
+      "internal_fold_rmsd_mean": 4.544,
       "dna_min_dist_ca_5": [
         22.124,
         0.637,

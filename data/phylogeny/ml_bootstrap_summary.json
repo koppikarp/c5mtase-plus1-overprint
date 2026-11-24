@@ -118,10 +118,10 @@
       "ml_boot": 95.0,
       "sh": 89.8,
       "composition": {
-        "ARCH1_FPCQ": 3,
         "ARCH1_TPCQ": 17,
+        "ARCH1_SPCQ": 2,
         "ARCH3": 7,
-        "ARCH1_SPCQ": 2
+        "ARCH1_FPCQ": 3
       },
       "branch_length": 0.4672
     },
@@ -145,8 +145,8 @@
       "ml_boot": 77.0,
       "sh": 91.9,
       "composition": {
-        "ARCH2": 3,
-        "ARCH1_FPCQ": 2
+        "ARCH1_FPCQ": 2,
+        "ARCH2": 3
       },
       "branch_length": 0.1717
     },
@@ -160,8 +160,8 @@
       "composition": {
         "ARCH1_FPCQ": 29,
         "ARCH1_TPCQ": 17,
-        "ARCH1_SPCQ": 3,
-        "ARCH2": 4
+        "ARCH2": 4,
+        "ARCH1_SPCQ": 3
       },
       "branch_length": 0.2028
     },
@@ -213,10 +213,10 @@
         "ml_boot": 95.0,
         "sh": 100.0,
         "composition": {
-          "ARCH1_FPCQ": 3,
           "ARCH1_TPCQ": 17,
+          "ARCH1_SPCQ": 2,
           "ARCH3": 7,
-          "ARCH1_SPCQ": 2
+          "ARCH1_FPCQ": 3
         },
         "branch_length": 0.4588
       }
@@ -254,10 +254,10 @@
         "ml_boot": 95.0,
         "sh": 89.8,
         "composition": {
-          "ARCH1_FPCQ": 3,
           "ARCH1_TPCQ": 17,
+          "ARCH1_SPCQ": 2,
           "ARCH3": 7,
-          "ARCH1_SPCQ": 2
+          "ARCH1_FPCQ": 3
         },
         "branch_length": 0.4672
       }

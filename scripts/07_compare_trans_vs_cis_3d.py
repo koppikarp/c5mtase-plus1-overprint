@@ -119,19 +119,20 @@ def main():
     a0_atoms = a0_chains["A"]
     a0_ids, a0_seq, a0_ca, a0_bf = lib.chain_ca_sequence(a0_atoms)
     a0_lm = find_landmarks_strict(a0_seq)
-    m_cis_csl = re.search(r"DLKDIVE", a0_seq)
+    m_cis_csl = re.search(r"GDLKDIVE", a0_seq)
     m_cis_kyf = re.search(r"KFYLS", a0_seq)
     assert m_cis_csl and m_cis_kyf
-    cis_csl_0 = m_cis_csl.start()  # 0-based index of D394 (1-based 394 -> 0-based 393)
-    cis_core_lo = cis_csl_0 - 6    # 0-based 387 -> 1-based 388 (I388..E441, 54 aa)
-    cis_core_hi = min(len(a0_seq), cis_csl_0 + 48)
+    cis_csl_0 = m_cis_csl.start()  # 0-based index of G395 (1-based 395 -> 0-based 394; homologous to C of CSLSDILE)
+    cis_kyf_0 = m_cis_kyf.start()  # 0-based index of K409 (1-based 409 -> 0-based 408)
+    cis_core_lo = cis_csl_0 - 6    # 0-based 388 -> 1-based 389 (P389..I442, 54 aa)
+    cis_core_hi = min(len(a0_seq), cis_kyf_0 + 34)
     cis_core_ca = a0_ca[cis_core_lo:cis_core_hi]
     cis_core_com = cis_core_ca.mean(axis=0)
     cis_core_heavy = chain_heavy_coords(a0_atoms, a0_ids[cis_core_lo], a0_ids[cis_core_hi - 1])
 
     # Exact cis inter-domain contacts with explicit residue ranges!
     mt_ca = a0_ca[:365]  # 1..365 (full C5-MTase domain Motifs I-X)
-    ct_core_ca = a0_ca[cis_core_lo:cis_core_hi]  # 388..441 (54-aa CSLSDILE/KYFLS core)
+    ct_core_ca = a0_ca[cis_core_lo:cis_core_hi]  # 389..442 (54-aa GDLKDIVE/KFYLS core)
     ct_full_ca = a0_ca[365:]  # 366..485 (full C-terminal domain)
     ca_c_core = int(np.sum(np.linalg.norm(mt_ca[:, None, :] - ct_core_ca[None, :, :], axis=2) < 8.0))
     ca_c_full = int(np.sum(np.linalg.norm(mt_ca[:, None, :] - ct_full_ca[None, :, :], axis=2) < 8.0))
@@ -181,7 +182,7 @@ def main():
     print(f"  1MHT active-site Cys = Cys{mht_cys_resnum} | AF-A0A6N9NLZ4-F1 active-site Cys = Cys{cis_cys_resnum}")
     print(f"  AF-A0A6N9NLZ4-F1 cis core [{a0_ids[cis_core_lo]}..{a0_ids[cis_core_hi-1]}]:")
     print(f"    Motif-IX R{a0_ids[cis_r1_idx]} <-> KFYLS Y{a0_ids[cis_y_idx]} = {cis_r1_y:.2f} A (R2={cis_r2_y:.2f} A)")
-    print(f"    Contacts MTase[1..365] vs core[388..441]: {ca_c_core} CA(<8A), {hv_c_core} heavy(<4.5A) | vs full[366..485]: {ca_c_full} CA, {hv_c_full} heavy")
+    print(f"    Contacts MTase[1..365] vs core[{a0_ids[cis_core_lo]}..{a0_ids[cis_core_hi-1]}]: {ca_c_core} CA(<8A), {hv_c_core} heavy(<4.5A) | vs full[366..485]: {ca_c_full} CA, {hv_c_full} heavy")
     print(f"    Dist to 1MHT DNA: CA min = {cis_dna_ca_min:.2f} A, heavy min = {cis_dna_hv_min:.2f} A | SAH: CA={cis_sah_ca_min:.2f} A, heavy={cis_sah_hv_min:.2f} A | Cys{cis_cys_resnum}={cis_cys_ca_min:.2f} A")
     print("=" * 110)
 
@@ -240,12 +241,22 @@ def main():
                 csl_pos_B = m_csl.start() + 1
                 kyf_pos_B = m_kyf.start() + 1
 
-            # Match residues [-6..+47] relative to CSLSDILE start (capped to chain B length)
+            # Match homologous core residues in exact register across both blocks:
+            # Block 1: [-6..+8) around [C/G]SLSDILE (anchored to G395 of GDLKDIVE in A0A6N9NLZ4)
+            # Block 2: [-min_gap..+34) around [K/R/E][Y/F/S][F/Y]L[S/N] (anchored to K409 of KFYLS),
+            # cleanly handling the 5-aa (A. soli, M.EaeI, Nanobdellota) vs 6-aa (P1, A0A6N9NLZ4) linker indel!
             b_csl0 = m_csl.start()
-            off_lo = max(-6, -b_csl0)
-            off_hi = min(48, len(seqB) - b_csl0, len(a0_seq) - cis_csl_0)
-            b_idx = [b_csl0 + o for o in range(off_lo, off_hi)]
-            c_idx = [cis_csl_0 + o for o in range(off_lo, off_hi)]
+            b_kyf0 = m_kyf.start()
+            b_idx, c_idx = [], []
+            for o in range(-6, 8):
+                if 0 <= b_csl0 + o < len(seqB) and 0 <= cis_csl_0 + o < len(a0_seq):
+                    b_idx.append(b_csl0 + o)
+                    c_idx.append(cis_csl_0 + o)
+            min_gap = min(b_kyf0 - (b_csl0 + 8), cis_kyf_0 - (cis_csl_0 + 8))
+            for o in range(-min_gap, 34):
+                if 0 <= b_kyf0 + o < len(seqB) and 0 <= cis_kyf_0 + o < len(a0_seq):
+                    b_idx.append(b_kyf0 + o)
+                    c_idx.append(cis_kyf_0 + o)
 
             b_core_tr = caB_tr[b_idx]
             c_core_ref = a0_ca[c_idx]

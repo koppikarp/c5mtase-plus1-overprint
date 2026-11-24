@@ -478,8 +478,8 @@ def main():
             "mwu_p_less": float(p_cc_less),
         }
         if fr != "+1":
-            _, p_wg = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="less")
-            _, p_wg_2s = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="two-sided")
+            _, p_wg = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="less", method="exact")
+            _, p_wg_2s = stats.wilcoxon(case_stops["+1"], case_stops[fr], alternative="two-sided", method="exact")
             within_gene_wilcoxon[fr] = {
                 "p_less": float(p_wg),
                 "p_twosided": float(p_wg_2s),

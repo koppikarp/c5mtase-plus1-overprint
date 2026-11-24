@@ -1,4 +1,4 @@
-"""Figure 2, Panel b: Sliding-window composition-corrected excess 4D conservation (whole-gene EXP_4D, genome-bootstrap 95% CI)."""
+"""Figure 2, Panel b: Sliding-window composition-corrected excess 4D conservation (whole-gene EXP_4D, ±1 genome-bootstrap s.e.)."""
 import json
 import numpy as np
 from style import DATA_DIR, PAL

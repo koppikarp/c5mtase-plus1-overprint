@@ -4,7 +4,7 @@ Step 1C: ENA/NCBI nucleotide verification of UniProt TPCQ C5-MTases.
 
 Default mode (100% self-contained): audits bundled data/uniprot_tpcq_dna_audit.json,
 confirming all 5/5 DNA-verified TPCQ entries (W1J1U5, A0A068R437, A0A1Y2S7M7,
-A0A0J1C4Q1, DAM_BPP1/P04392) encode intact +1 CSLSDILE/KYFLS ORFs.
+A0A0J1C4Q1, DAM_BPP1/Q71TL0) encode intact +1 CSLSDILE/KYFLS ORFs.
 
 Optional live fetch mode:
   python scripts/04_verify_uniprot_dna.py --fetch-ena
