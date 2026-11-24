@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this preprint, phylogenetic datasets, structural analyses, or scripts, please cite this work."
+type: dataset
+title: "A Pan-Prokaryotic and Viral +1 Overprinted Gene Family Inside Full-Length C5-Cytosine DNA Methyltransferases Explains the Origin of Split-Subunit Methyltransferases"
+authors:
+  - family-names: Koppikar
+    given-names: Pratik
+    affiliation: "University of Cambridge"
+    email: "psk34@cam.ac.uk"
+    orcid: "https://orcid.org/0000-0001-5089-5584"
+date-released: "2026-11-24"
+version: "1.0.0"
+repository-code: "https://github.com/koppikarp/c5mtase-plus1-overprint"
+license: "MIT"
+keywords:
+  - overlapping genes
+  - overprinting
+  - cytosine-5 DNA methyltransferase
+  - bacteriophage P1
+  - dmt
+  - M.EcoHK31I
+  - M.EaeI
+  - AlphaFold 3
+  - dual-coding genes
+  - phylogenetics

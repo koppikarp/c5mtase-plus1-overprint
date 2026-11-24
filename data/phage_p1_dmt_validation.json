@@ -1,0 +1,169 @@
+{
+  "accession": "AF234172",
+  "organism": "Escherichia virus P1",
+  "uniprot": "DAM_BPP1",
+  "genome_bp": 94800,
+  "dmt_cds": {
+    "start_1b": 66412,
+    "end_1b": 68676,
+    "strand": "+",
+    "len_aa": 754,
+    "start_codon": "GTG",
+    "stop_codon": "TAA"
+  },
+  "dmt_domains_aa": {
+    "c5_mtase_domain": [
+      1,
+      473
+    ],
+    "motif_I": [
+      7,
+      16
+    ],
+    "motif_IV_TPCQ": [
+      76,
+      79
+    ],
+    "active_site_cys": 78,
+    "motif_VI_ENV": [
+      123,
+      129
+    ],
+    "motif_VIII": [
+      201,
+      214
+    ],
+    "TRD": [
+      215,
+      384
+    ],
+    "motif_IX": [
+      385,
+      396
+    ],
+    "motif_X": [
+      445,
+      459
+    ],
+    "dam_n6a_domain": [
+      485,
+      754
+    ]
+  },
+  "plus1_orf": {
+    "stop_to_stop_dmt_nt": [
+      299,
+      790
+    ],
+    "stop_to_stop_genome_1b": [
+      66710,
+      67201
+    ],
+    "stop_to_stop_aa": 163,
+    "stop_codon": "TAA",
+    "sd_atg_isoforms": [
+      {
+        "local_aa_1b": 7,
+        "dmt_nt_1b": 317,
+        "genome_1b": 66728,
+        "sd": "GGAG",
+        "spacer_nt": 7,
+        "codon": "ATG",
+        "len_aa": 157,
+        "name": "157aa_isoform",
+        "af3_iptm_mean": 0.652
+      },
+      {
+        "local_aa_1b": 100,
+        "dmt_nt_1b": 596,
+        "genome_1b": 67007,
+        "sd": "GGAG",
+        "spacer_nt": 8,
+        "codon": "ATG",
+        "len_aa": 64,
+        "name": "64aa_core_microprotein",
+        "af3_iptm_mean": 0.83
+      }
+    ],
+    "csl_motif_in_64aa": {
+      "seq": "CLLSQVLE",
+      "pos": [
+        14,
+        21
+      ]
+    },
+    "ryf_motif_in_64aa": {
+      "seq": "RYFLS",
+      "pos": [
+        28,
+        32
+      ],
+      "lock_residue": "F30",
+      "partner": "A:R385",
+      "dist_5model_A": 3.778
+    }
+  },
+  "host_strain_requirement": "Use a non-amber-suppressor (sup^0) E. coli host (e.g., MG1655, W3110, or BL21); avoid supE44/glnV amber-suppressor strains (e.g., C600, DH5alpha, JM109) because all four +1 nonsense alleles introduce TAG (amber) stop codons.",
+  "validation_mutations": [
+    {
+      "dmt_nt": 642,
+      "genome_1b": 67053,
+      "ref": "T",
+      "alt": "A",
+      "sub": "T>A",
+      "frame0_aa_pos": 214,
+      "frame0_codon_change": "GTT->GTA",
+      "frame0_effect": "V214V (GTT->GTA, synonymous)",
+      "ecoli_alt_codon_usage": "moderate (10.9/1000)",
+      "plus1_codon_change": "TTG->TAG",
+      "plus1_effect": "L115* (TTG->TAG, amber stop; CLLSQVLE (L16* in 64-aa core))",
+      "plus1_64aa_pos": 16,
+      "recommendation_tier": "primary"
+    },
+    {
+      "dmt_nt": 645,
+      "genome_1b": 67056,
+      "ref": "C",
+      "alt": "A",
+      "sub": "C>A",
+      "frame0_aa_pos": 215,
+      "frame0_codon_change": "GTC->GTA",
+      "frame0_effect": "V215V (GTC->GTA, synonymous)",
+      "ecoli_alt_codon_usage": "moderate (10.9/1000)",
+      "plus1_codon_change": "TCG->TAG",
+      "plus1_effect": "S116* (TCG->TAG, amber stop; CLLSQVLE (S17* in 64-aa core))",
+      "plus1_64aa_pos": 17,
+      "recommendation_tier": "primary"
+    },
+    {
+      "dmt_nt": 666,
+      "genome_1b": 67077,
+      "ref": "C",
+      "alt": "A",
+      "sub": "C>A",
+      "frame0_aa_pos": 222,
+      "frame0_codon_change": "CTC->CTA",
+      "frame0_effect": "L222L (CTC->CTA, synonymous)",
+      "ecoli_alt_codon_usage": "rare (3.9/1000)",
+      "plus1_codon_change": "TCG->TAG",
+      "plus1_effect": "S123* (TCG->TAG, amber stop; pre-RYFLS linker (S24* in 64-aa core))",
+      "plus1_64aa_pos": 24,
+      "recommendation_tier": "secondary_rare_codon"
+    },
+    {
+      "dmt_nt": 714,
+      "genome_1b": 67125,
+      "ref": "T",
+      "alt": "A",
+      "sub": "T>A",
+      "frame0_aa_pos": 238,
+      "frame0_codon_change": "ATT->ATA",
+      "frame0_effect": "I238I (ATT->ATA, synonymous)",
+      "ecoli_alt_codon_usage": "rare (4.4/1000)",
+      "plus1_codon_change": "TTG->TAG",
+      "plus1_effect": "L139* (TTG->TAG, amber stop; C-terminal alpha-helix (L40* in 64-aa core))",
+      "plus1_64aa_pos": 40,
+      "recommendation_tier": "secondary_rare_codon"
+    }
+  ]
+}

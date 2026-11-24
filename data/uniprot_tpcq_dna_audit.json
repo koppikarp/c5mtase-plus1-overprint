@@ -1,0 +1,113 @@
+[
+  {
+    "acc": "W1J1U5",
+    "entry": "W1J1U5_9GAMM",
+    "org": "Xenorhabdus szentirmaii DSM 16338",
+    "ena_pid": "CDL83851.1",
+    "f0_len": 415,
+    "motif4": "TPCQ",
+    "has_plus1": true,
+    "p1_stops_win": 0,
+    "p1_orfs": [
+      {
+        "start_aa": 95,
+        "end_aa": 242,
+        "len_aa": 147,
+        "csl": "CLLSQVLE",
+        "kyf": "RYFLN",
+        "seq": "PYHSWSWQMSLIQSEQQTANSLQLSSGKMCRAYSPAKITPSVVFLQDLPEKMNHCSHQGRNGQTQVMCLGHKETSPGEYSTLNISEWPNDAVVCLLSQVLEKTSVPPRYFLNKTACTGILNRAERRGKQLPPMLEAALLSVVTGIQR"
+      }
+    ]
+  },
+  {
+    "acc": "A0A068R437",
+    "entry": "A0A068R437_9GAMM",
+    "org": "Xenorhabdus poinarii G6",
+    "ena_pid": "CDG21671.1",
+    "f0_len": 347,
+    "motif4": "TPCQ",
+    "has_plus1": true,
+    "p1_stops_win": 0,
+    "p1_orfs": [
+      {
+        "start_aa": 102,
+        "end_aa": 247,
+        "len_aa": 145,
+        "csl": "CLLSQVLE",
+        "kyf": "RYFLS",
+        "seq": "HYHSWSWPMSLIQSEQQMENRPPLSSGKMSPAPCPAETTHLATCWQGWPVKTNRCSRQGNGGRTRVMCLAPKEPSPGEFSTLNISEWPNDAAVCLLSQVLEQTSVPPRYFLSQTACAGILRRAERRGKQLPSMLESALLSVVTGS"
+      }
+    ]
+  },
+  {
+    "acc": "A0A1Y2S7M7",
+    "entry": "A0A1Y2S7M7_9GAMM",
+    "org": "Xenorhabdus vietnamensis",
+    "ena_pid": "OTA14635.1",
+    "f0_len": 413,
+    "motif4": "TPCQ",
+    "has_plus1": true,
+    "p1_stops_win": 0,
+    "p1_orfs": [
+      {
+        "start_aa": 102,
+        "end_aa": 242,
+        "len_aa": 140,
+        "csl": "CLLSQVLE",
+        "kyf": "RYFLS",
+        "seq": "QMSLTQSGQQTANSHQLSSGKTSPVSCPAKTMHLGVFLLDLLEKMSRCSRQGRNGQTQVMCLDHKETSHGECSTLNISEWPSDAVVCLLSQVLEKTSVPQRYFLSQTACLGILNRAERRGKQLPKTLEAALLSAVTGTQD"
+      }
+    ]
+  },
+  {
+    "acc": "A0A0J1C4Q1",
+    "entry": "A0A0J1C4Q1_9NEIS",
+    "org": "Neisseria arctica",
+    "ena_pid": "KLT73288.1",
+    "f0_len": 401,
+    "motif4": "TPCQ",
+    "has_plus1": true,
+    "p1_stops_win": 0,
+    "p1_orfs": [
+      {
+        "start_aa": 102,
+        "end_aa": 235,
+        "len_aa": 133,
+        "csl": "SFLWQVLE",
+        "kyf": "KYFLS",
+        "seq": "MQLTLFGQETDSRPASWYGRTSQASCLQKTTPLDVFWQDLPAKNIRLNQQGKDGQTLVVCLDNPAKSRGAYSMLNFSECPNDAEESFLWQVLEISPLPKYFLSAHAREGILRRAERRGKQLPEQLVAALKHTE"
+      }
+    ]
+  },
+  {
+    "acc": "P04392",
+    "entry": "DAM_BPP1",
+    "org": "Escherichia virus P1 (AF234172)",
+    "ena_pid": "AF234172",
+    "f0_len": 754,
+    "motif4": "TPCQ",
+    "has_plus1": true,
+    "p1_stops_win": 0,
+    "p1_orfs": [
+      {
+        "start_aa": 99,
+        "end_aa": 262,
+        "len_aa": 163,
+        "csl": "CLLSQVLE",
+        "kyf": "RYFLS",
+        "seq": "KSCRQMNKLSRQSDLSPRSVFLQKTMLKVLGLGDTKSTQETTLRDYSRMGRNGQTRVMCLGRPGASQGEYSTMNISEWPNDAADCLLSQVLEKTSVPKRYFLSKTACLGILRRAERRGKQLPEALVDALVSLVTGTQDGTTVQRRLMKAQQIQLSRTLQAGV"
+      }
+    ]
+  },
+  {
+    "acc": "A0A1I2CIH5",
+    "entry": "A0A1I2CIH5_9BACL",
+    "org": "Paenibacillus algorifonticola (Arch 2 +1 beta subunit itself)",
+    "ena_pid": "SFE68179.1",
+    "f0_len": 220,
+    "motif4": "N/A_beta_subunit",
+    "has_plus1": false,
+    "p1_stops_win": 8,
+    "p1_orfs": []
+  }
+]
