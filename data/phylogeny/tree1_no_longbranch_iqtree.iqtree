@@ -1,0 +1,596 @@
+IQ-TREE 2.4.0 built Mar  8 2025
+
+Input file name: tree1_no_longbranch_trimmed.afa
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 42
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 96 sequences with 185 amino-acid sites
+Number of constant sites: 6 (= 3.24324% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 6 (= 3.24324% of all sites)
+Number of parsimony informative sites: 175
+Number of distinct site patterns: 185
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: Q.pfam+R6
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+Q.pfam+R6        -22423.487   45244.974 +    0.461  124844.974 -        0   45885.825 +    0.955
+Q.pfam+R7        -22421.332   45244.664 +    0.538  126448.664 -        0   45891.956 -   0.0445
+LG+R6            -22430.397   45258.795 -  0.00046  124858.795 -        0   45899.646 - 0.000952
+LG+R7            -22430.167   45262.333 - 7.84e-05  126466.333 -        0   45909.625 - 6.48e-06
+LG+I+R5          -22439.807   45275.614 - 1.02e-07  124079.614 -        0   45913.245 - 1.06e-06
+LG+R5            -22442.686   45279.372 - 1.56e-08  123291.372 -        0   45913.782 - 8.11e-07
+LG+I+G4          -22458.742   45299.485 - 6.71e-13  118643.485 - 6.17e-150   45914.572 - 5.46e-07
+LG+I+R4          -22448.259   45288.518 - 1.62e-10  122512.518 -        0   45919.708 - 4.19e-08
+LG+I+R6          -22439.705   45279.410 - 1.53e-08  125679.410 -        0   45923.482 - 6.35e-09
+LG+R4            -22481.351   45352.703 - 1.87e-24  121792.703 -        0   45980.672 - 2.42e-21
+LG+G4            -22498.175   45376.349 - 1.37e-29  117956.349 +        1   45988.217 - 5.57e-23
+Q.pfam+F+R6      -22430.703   45297.406 -  1.9e-12  140781.406 -        0   45999.444 - 2.03e-25
+Q.pfam+F+R7      -22429.250   45298.500 -  1.1e-12  142538.500 -        0   46006.979 - 4.69e-27
+LG+F+R6          -22434.487   45304.975 - 4.31e-14  140788.975 -        0   46007.012 - 4.62e-27
+WAG+R6           -22485.824   45369.648 -  3.9e-28  124969.648 -        0   46010.499 - 8.08e-28
+LG+I+R3          -22498.879   45385.759 - 1.24e-31  121045.759 -        0   46010.508 - 8.04e-28
+LG+F+R7          -22434.009   45308.018 - 9.42e-15  142548.018 -        0   46016.496 - 4.03e-29
+WAG+R7           -22485.170   45372.340 - 1.02e-28  126576.340 -        0   46019.632 -  8.4e-30
+WAG+F+R6         -22443.320   45322.640 - 6.29e-18  140806.640 -        0   46024.678 - 6.73e-31
+WAG+F+R7         -22442.663   45325.325 - 1.64e-18  142565.325 -        0   46033.803 - 7.03e-33
+VT+R6            -22501.383   45400.767 - 6.82e-35  125000.767 -        0   46041.618 - 1.41e-34
+VT+R7            -22499.646   45401.292 - 5.25e-35  126605.292 -        0   46048.583 - 4.34e-36
+Blosum62+R6      -22511.779   45421.558 - 2.09e-39  125021.558 -        0   46062.409 - 4.32e-39
+Blosum62+R7      -22510.912   45423.824 - 6.71e-40  126627.824 -        0   46071.116 - 5.55e-41
+LG+R3            -22543.386   45472.772 - 1.58e-50  120356.772 -        0   46094.301 - 5.13e-46
+PMB+R6           -22542.616   45483.231 - 8.45e-53  125083.231 -        0   46124.082 - 1.75e-52
+VT+F+R6          -22497.232   45430.464 - 2.43e-41  140914.464 -        0   46132.501 -  2.6e-54
+PMB+R7           -22542.501   45487.003 - 1.28e-53  126691.003 -        0   46134.294 - 1.06e-54
+VT+F+R7          -22495.403   45430.807 - 2.05e-41  142670.807 -        0   46139.285 - 8.74e-56
+Blosum62+F+R6    -22529.937   45495.874 - 1.52e-55  140979.874 -        0   46197.911 - 1.63e-68
+Blosum62+F+R7    -22529.290   45498.580 - 3.93e-56  142738.580 -        0   46207.058 - 1.68e-70
+LG+I+R2          -22621.834   45627.668 - 3.66e-84  119739.668 -        0   46245.976 - 5.94e-79
+PMB+F+R6         -22568.389   45572.777 - 3.04e-72  141056.777 -        0   46274.815 - 3.25e-85
+PMB+F+R7         -22568.177   45576.354 - 5.08e-73  142816.354 -        0   46284.832 - 2.17e-87
+LG+R2            -22716.046   45814.092 - 1.21e-124  119158.092 - 1.11e-261   46429.180 - 9.81e-119
+JTT+R6           -22765.590   45929.180 - 1.23e-149  125529.180 -        0   46570.031 - 2.55e-149
+JTT+R7           -22763.838   45929.676 - 9.61e-150  127133.676 -        0   46576.967 - 7.95e-151
+JTT+F+R6         -22755.000   45946.000 - 2.74e-153  141430.000 -        0   46648.038 - 2.93e-166
+JTT+F+R7         -22753.049   45946.098 - 2.61e-153  143186.098 -        0   46654.576 - 1.12e-167
+Dayhoff+F+R6     -22898.804   46233.608 - 9.65e-216  141717.608 -        0   46935.646 - 1.03e-228
+Dayhoff+F+R7     -22898.469   46236.937 - 1.83e-216  143476.937 -        0   46945.415 - 7.81e-231
+Dayhoff+R6       -22966.394   46330.788 - 7.63e-237  125930.788 -        0   46971.639 - 1.58e-236
+Dayhoff+R7       -22966.123   46334.246 - 1.35e-237  127538.246 -        0   46981.538 - 1.12e-238
+LG+I             -23179.446   46738.891 -        0  119318.891 - 1.34e-296   47350.759 - 7.47e-319
+LG               -23377.874   47133.748 -        0  118953.748 - 2.62e-217   47742.396 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: Q.pfam+R6
+
+State frequencies: (model)
+
+Model of rate heterogeneity: FreeRate with 6 categories
+Site proportion and rates:  (0.0488,0.0107) (0.1688,0.2581) (0.3166,0.6149) (0.2586,1.1078) (0.1454,1.8386) (0.0618,3.3557)
+
+ Category  Relative_rate  Proportion
+  1         0.0107         0.0488
+  2         0.2581         0.1688
+  3         0.6149         0.3166
+  4         1.1078         0.2586
+  5         1.8386         0.1454
+  6         3.3557         0.0618
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -22351.7158 (s.e. 713.2638)
+Unconstrained log-likelihood (without tree): -965.7658
+Number of free parameters (#branches + #model parameters): 199
+Akaike information criterion (AIC) score: 45101.4315
+Corrected Akaike information criterion (AICc) score: 124701.4315
+Bayesian information criterion (BIC) score: 45742.2823
+
+**************************** WARNING ****************************
+Number of parameters (K, model parameters and branch lengths): 199
+Sample size (n, alignment length): 185
+
+Given that K>=n, the parameter estimates might be inaccurate.
+Thus, phylogenetic estimates should be interpreted with caution.
+
+Ideally, it is desirable that n >> K. When selecting optimal models,
+1. use AIC or BIC if n > 40K;
+2. use AICc or BIC if 40K >= n > K;
+3. be extremely cautious if n <= K
+
+To improve the situation (3), consider the following options:
+  1. Increase the sample size (n)
+  2. Decrease the number of parameters (K) to be estimated. If
+     possible:
+     a. Remove the least important sequences from the alignment
+     b. Specify some of the parameter values for the substitution
+        model (e.g., the nucleotide or amino acid frequencies)
+     c. Specify some of the parameter values for the rates-across-
+        sites model (e.g., the shape parameter for the discrete
+        Gamma distribution, the proportion of invariable sites, or
+        the rates of change for different rate categories under
+        the FreeRate model)
+
+Reference:
+Burnham KR, Anderson DR (2002). Model Selection and Multimodel
+Inference: A Practical Information-Theoretic Approach. Springer,
+New York.
+************************ END OF WARNING ***********************
+
+Total tree length (sum of branch lengths): 52.5110
+Sum of internal branch lengths: 18.9420 (36.0725% of tree length)
+
+WARNING: 1 near-zero internal branches (<0.0054) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'OUT_Human_DNMT1' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++------------------------OUT_Human_DNMT1
+|
++----------------------OUT_Human_TRDMT1
+|
+|                             +-------OUT_Arch_M_MthTI
+|                        +----| (96.2/99)
+|                        |    +----NOp1_SP_MTH3_HAEAE
+|                 +------| (98.3/100)
+|                 |      +----------NOp1_FPCQ_Phg_EU100883
+|              +--| (91.7/64)
+|              |  |          +---------------------------------NOp1_SP_M_SssI
+|              |  |       +--| (74.9/65)
+|              |  |       |  |           +--NOp1_SPCQ_Phg_AP019561
+|              |  |       |  +-----------| (100/100)
+|              |  |       |              +---NOp1_SPCQ_Phg_GQ478086
+|              |  |  +----| (96.8/94)
+|              |  |  |    +-------NOp1_FPCQ_Phg_KJ451625
+|              |  +--| (85.4/75)
+|              |     +-------NOp1_SP_MTBR_BPRH1
+|           +--| (74.8/43)
+|           |  |                    +-----NOp1_SP_M_HhaI
+|           |  |              +-----| (99.7/91)
+|           |  |              |     |         +--NOp1_SP_EcoliDcm
+|           |  |              |     |  +------| (99.5/100)
+|           |  |              |     |  |      +--NOp1_SP_M_EcoRII
+|           |  |              |     +--| (3.9/44)
+|           |  |              |        +--------NOp1_SP_MTM1_MORSP
+|           |  |           +--| (92.5/51)
+|           |  |           |  |     +--A1_FPCQ_Pate_41255
+|           |  |           |  |  +--| (93.6/94)
+|           |  |           |  |  |  +--A1_FPCQ_Pate_50355
+|           |  |           |  +--| (80.3/71)
+|           |  |           |     +-------A1_FPCQ_Arc_08045
+|           |  |        +**| (0/7)
+|           |  |        |  |  +-----A1_FPCQ_Baci_48555
+|           |  |        |  +--| (96.9/79)
+|           |  |        |     |     +--A1_FPCQ_Baci_86705
+|           |  |        |     |  +--| (98.3/99)
+|           |  |        |     |  |  |     +--A1_FPCQ_Baci_55375
+|           |  |        |     |  |  |  +--| (84.8/76)
+|           |  |        |     |  |  |  |  +--A1_FPCQ_Baci_80585
+|           |  |        |     |  |  +--| (84/75)
+|           |  |        |     |  |     |        +--A1_FPCQ_Phg_KY705251
+|           |  |        |     |  |     |     +--| (88.9/90)
+|           |  |        |     |  |     |     |  +--A1_FPCQ_Phg_FJ965538
+|           |  |        |     |  |     |  +--| (58.3/73)
+|           |  |        |     |  |     |  |  +--A1_FPCQ_Phg_AJ302074
+|           |  |        |     |  |     +--| (97.6/98)
+|           |  |        |     |  |        +--A1_FPCQ_Phg_KX550065
+|           |  |        |     +--| (78.3/70)
+|           |  |        |        |     +----A1_FPCQ_Baci_54275
+|           |  |        |        |  +--| (91.4/83)
+|           |  |        |        |  |  |  +------A1_SPCQ_Baci_62695
+|           |  |        |        |  |  +--| (52.1/63)
+|           |  |        |        |  |     +---A1_FPCQ_Baci_20305
+|           |  |        |        +--| (97.6/93)
+|           |  |        |           |  +--A1_FPCQ_Phg_EU719189
+|           |  |        |           +--| (99.1/99)
+|           |  |        |              |    +--A1_FPCQ_Phg_MG252693
+|           |  |        |              +----| (100/100)
+|           |  |        |                   +--A1_FPCQ_Phg_KU052488
+|           |  |     +--| (81/19)
+|           |  |     |  +-----------A1_FPCQ_Desu_83865
+|           |  |  +--| (45/21)
+|           |  |  |  |  +---A1_FPCQ_Elus_72025
+|           |  |  |  +--| (96.5/85)
+|           |  |  |     +-----A1_FPCQ_Pate_56915
+|           |  +--| (90/51)
+|           |     +------A1_FPCQ_Arc_28495
+|        +--| (93.8/62)
+|        |  |  +--A1_FPCQ_Pate_99755
+|        |  +--| (98.5/100)
+|        |     |  +--A1_FPCQ_Pate_63305
+|        |     +--| (80.7/81)
+|        |        +--A1_FPCQ_Pate_99515
+|     +--| (38.7/48)
+|     |  |                                                                +--A3_UP_A0A6N9NLZ4
+|     |  |                                                             +--| (97.6/99)
+|     |  |                                                             |  +--A3_UP_A0A0D5YPG6
+|     |  |                                                          +--| (86.4/98)
+|     |  |                                                          |  +--A3_UP_A0A255ZXG1
+|     |  |                                                       +--| (98.5/100)
+|     |  |                                                       |  +--A3_UP_A0A345HDU4
+|     |  |                                                    +--| (98.7/100)
+|     |  |                                                    |  |  +-----A3_GTDB_Pseu_24145
+|     |  |                                                    |  +--| (96.1/97)
+|     |  |                                                    |     |  +--A3_GTDB_Cyan_99385
+|     |  |                                                    |     +--| (63.9/73)
+|     |  |                                                    |        +--A3_GTDB_Baci_78395
+|     |  |                                                 +--| (67.5/56)
+|     |  |                                                 |  +--A1_TPCQ_Phg_MN692199
+|     |  |                                              +--| (76.5/56)
+|     |  |                                              |  +---A1_TPCQ_Pate_04855
+|     |  |                                           +--| (78.1/48)
+|     |  |                                           |  +--A1_TPCQ_Phg_AY349011
+|     |  |                                        +--| (28.2/37)
+|     |  |                                        |  |     +--A1_TPCQ_UP_W1J1U5
+|     |  |                                        |  |  +--| (85.7/96)
+|     |  |                                        |  |  |  +--A1_TPCQ_UP_A0A1Y2S7M7
+|     |  |                                        |  +--| (98.9/99)
+|     |  |                                        |     +--A1_TPCQ_UP_A0A068R437
+|     |  |                                     +--| (57.5/46)
+|     |  |                                     |  +--A1_TPCQ_Phg_OK499971
+|     |  |                                  +--| (23/37)
+|     |  |                                  |  +--A1_TPCQ_Phg_AF234172
+|     |  |                               +--| (88.9/82)
+|     |  |                               |  |  +--A1_TPCQ_UP_A0A0J1C4Q1
+|     |  |                               |  +--| (61.9/58)
+|     |  |                               |     +--------A1_TPCQ_Pseu_68225
+|     |  |                            +--| (93.9/91)
+|     |  |                            |  |   +-------A1_TPCQ_Phg_MH588547
+|     |  |                            |  +---| (95.5/96)
+|     |  |                            |      |               +--A1_FPCQ_Phg_JX100814
+|     |  |                            |      |            +--| (40.3/74)
+|     |  |                            |      |            |  +--A1_FPCQ_Phg_JX100813
+|     |  |                            |      +------------| (100/100)
+|     |  |                            |                   +--A1_FPCQ_Phg_MH588544
+|     |  |                         +--| (61.1/62)
+|     |  |                         |  +-----A1_TPCQ_Pseu_78085
+|     |  |                      +--| (89.8/61)
+|     |  |                      |  +---A1_TPCQ_Plan_65095
+|     |  |                   +--| (90.1/63)
+|     |  |                   |  +-----A1_TPCQ_Pate_41255
+|     |  |                +--| (66.5/53)
+|     |  |                |  |     +--A1_TPCQ_Plan_10975
+|     |  |                |  |  +--| (99.2/100)
+|     |  |                |  |  |  +--A1_TPCQ_Plan_72085
+|     |  |                |  +--| (61/35)
+|     |  |                |     +----A1_TPCQ_Myxo_29365
+|     |  |           +----| (99.1/100)
+|     |  |           |    |    +--A1_SPCQ_Plan_72085
+|     |  |           |    +----| (99.9/100)
+|     |  |           |         +--A1_SPCQ_Plan_00225
+|     |  |        +--| (78.9/61)
+|     |  |        |  |             +--SplitTRD_SPCQ_Baci_34735
+|     |  |        |  |          +--| (96.7/99)
+|     |  |        |  |          |  +--A1_SPCQ_Baci_24645
+|     |  |        |  |  +-------| (99.8/100)
+|     |  |        |  |  |       |  +--A1_SPCQ_Baci_53025
+|     |  |        |  |  |       +--| (93.6/98)
+|     |  |        |  |  |          |  +--A1_SPCT_Baci_73905
+|     |  |        |  |  |          +--| (93.8/97)
+|     |  |        |  |  |             +--A1_SPCT_Baci_01916
+|     |  |        |  +--| (77.2/76)
+|     |  |        |     +-----A1_SPCQ_Baci_09825
+|     |  |     +--| (69.6/63)
+|     |  |     |  |    +----NOp1_FPCQ_Phg_EF536069
+|     |  |     |  +----| (96.7/99)
+|     |  |     |       |                   +--NOp1_FPCQ_Phg_KU160660
+|     |  |     |       |                +--| (97.8/93)
+|     |  |     |       |                |  +--NOp1_FPCQ_Phg_MN234234
+|     |  |     |       |             +--| (60/62)
+|     |  |     |       |             |  +--NOp1_FPCQ_Phg_MF185718
+|     |  |     |       +-------------| (100/100)
+|     |  |     |                     +--NOp1_FPCQ_Phg_MH744419
+|     |  +-----| (100/99)
+|     |        |           +--A2_UP_M_EaeI
+|     |        |        +--| (93.7/96)
+|     |        |        |  +---A2_GTDB_Thio_01135
+|     |        |     +--| (63.8/67)
+|     |        |     |  +----------A2_GTDB_Cyan_77528
+|     |        |  +--| (88/77)
+|     |        |  |  |  +-----A1_FPCQ_JACP_92455
+|     |        |  |  +--| (96.1/91)
+|     |        |  |     +----A1_FPCQ_Chlo_20215
+|     |        +--| (92/85)
+|     |           |  +-----A1_FPCQ_Phg_AY129338
+|     |           +--| (63.7/74)
+|     |              +------------------------NOp1_FPCQ_Phg_JN564907
++-----| (86.6/86)
+      |                           +--NOp1_FPCQ_Phg_KC295538
+      |                        +--| (98.2/95)
+      |                        |  |     +--NOp1_FPCQ_Phg_JN882285
+      |                        |  |  +--| (96.8/99)
+      |                        |  |  |  +--NOp1_FPCQ_Phg_KU574722
+      |                        |  +--| (13.3/51)
+      |                        |     +--NOp1_SPCT_Phg_AB897757
+      |                     +--| (99.1/100)
+      |                     |  +------NOp1_FPCQ_Phg_MN062188
+      |                  +--| (95.7/98)
+      |                  |  +--NOp1_SPCQ_Phg_FR775895
+      |               +--| (84.2/74)
+      |               |  +----------NOp1_SPCQ_Phg_KT990215
+      |            +--| (87.9/64)
+      |            |  +-----NOp1_SPCQ_Phg_KC821619
+      +------------| (100/100)
+                   |     +-----NOp1_SPCQ_Phg_KC821620
+                   |  +--| (87.8/83)
+                   |  |  +------NOp1_SPCQ_Phg_KC821613
+                   +--| (71.6/61)
+                      +--NOp1_SPCQ_Phg_AP013541
+
+Tree in newick format:
+
+(OUT_Human_DNMT1:1.8183174389,OUT_Human_TRDMT1:1.6844374110,(((((((OUT_Arch_M_MthTI:0.6359700841,NOp1_SP_MTH3_HAEAE:0.4319082746)96.2/99:0.3946631353,NOp1_FPCQ_Phg_EU100883:0.8386874183)98.3/100:0.5432315123,(((NOp1_SP_M_SssI:2.4563562376,(NOp1_SPCQ_Phg_AP019561:0.1304019472,NOp1_SPCQ_Phg_GQ478086:0.3590403115)100/100:0.9148534073)74.9/65:0.2226958046,NOp1_FPCQ_Phg_KJ451625:0.5942398137)96.8/94:0.4279442322,NOp1_SP_MTBR_BPRH1:0.5827458344)85.4/75:0.1619123108)91.7/64:0.2513169231,((((((NOp1_SP_M_HhaI:0.4967554227,((NOp1_SP_EcoliDcm:0.1838581773,NOp1_SP_M_EcoRII:0.0830289376)99.5/100:0.5133141563,NOp1_SP_MTM1_MORSP:0.6962846338)3.9/44:0.1416107890)99.7/91:0.4779248325,((A1_FPCQ_Pate_41255:0.1212506089,A1_FPCQ_Pate_50355:0.0901010634)93.6/94:0.1071228103,A1_FPCQ_Arc_08045:0.6132235021)80.3/71:0.0524213179)92.5/51:0.0858873818,(A1_FPCQ_Baci_48555:0.4766429834,((A1_FPCQ_Baci_86705:0.1471200576,((A1_FPCQ_Baci_55375:0.1636337694,A1_FPCQ_Baci_80585:0.1347156838)84.8/76:0.0360702022,(((A1_FPCQ_Phg_KY705251:0.2423108222,A1_FPCQ_Phg_FJ965538:0.0771470929)88.9/90:0.0710346403,A1_FPCQ_Phg_AJ302074:0.0469115054)58.3/73:0.0563300843,A1_FPCQ_Phg_KX550065:0.1143849184)97.6/98:0.1238673775)84/75:0.0580446956)98.3/99:0.2039086913,((A1_FPCQ_Baci_54275:0.3908390117,(A1_SPCQ_Baci_62695:0.5595022357,A1_FPCQ_Baci_20305:0.3027643673)52.1/63:0.0983220227)91.4/83:0.1746912563,(A1_FPCQ_Phg_EU719189:0.1402578449,(A1_FPCQ_Phg_MG252693:0.0577443831,A1_FPCQ_Phg_KU052488:0.0212296551)100/100:0.3903314241)99.1/99:0.2408364468)97.6/93:0.2240898708)78.3/70:0.1301864423)96.9/79:0.1442641671)0/7:0.0000020780,A1_FPCQ_Desu_83865:0.9275060409)81/19:0.0526114713,(A1_FPCQ_Elus_72025:0.3426568657,A1_FPCQ_Pate_56915:0.4445946634)96.5/85:0.1945128720)45/21:0.0992865113,A1_FPCQ_Arc_28495:0.5475224459)90/51:0.1188723139)74.8/43:0.1068307892,(A1_FPCQ_Pate_99755:0.0848774718,(A1_FPCQ_Pate_63305:0.0821089102,A1_FPCQ_Pate_99515:0.1007282317)80.7/81:0.0555823334)98.5/100:0.2634135335)93.8/62:0.1661054143,((((((((((((((((((((A3_UP_A0A6N9NLZ4:0.0389362197,A3_UP_A0A0D5YPG6:0.0502825128)97.6/99:0.1125999831,A3_UP_A0A255ZXG1:0.1117091863)86.4/98:0.0601617163,A3_UP_A0A345HDU4:0.1306353745)98.5/100:0.2113612514,(A3_GTDB_Pseu_24145:0.4705436481,(A3_GTDB_Cyan_99385:0.1417850867,A3_GTDB_Baci_78395:0.2107219210)63.9/73:0.1029468765)96.1/97:0.2226671352)98.7/100:0.2713986710,A1_TPCQ_Phg_MN692199:0.2668328339)67.5/56:0.0627143249,A1_TPCQ_Pate_04855:0.3147979312)76.5/56:0.0809902178,A1_TPCQ_Phg_AY349011:0.1373630026)78.1/48:0.0464466489,((A1_TPCQ_UP_W1J1U5:0.0597298425,A1_TPCQ_UP_A0A1Y2S7M7:0.0806621791)85.7/96:0.0289001669,A1_TPCQ_UP_A0A068R437:0.0738311100)98.9/99:0.1262497975)28.2/37:0.0142468560,A1_TPCQ_Phg_OK499971:0.1140734679)57.5/46:0.0650604842,A1_TPCQ_Phg_AF234172:0.2363476472)23/37:0.0374537365,(A1_TPCQ_UP_A0A0J1C4Q1:0.1420463274,A1_TPCQ_Pseu_68225:0.6769463812)61.9/58:0.0585700368)88.9/82:0.0903924666,(A1_TPCQ_Phg_MH588547:0.6413633430,((A1_FPCQ_Phg_JX100814:0.1348449810,A1_FPCQ_Phg_JX100813:0.1115255157)40.3/74:0.0617581942,A1_FPCQ_Phg_MH588544:0.0164831303)100/100:0.9425354602)95.5/96:0.2920606959)93.9/91:0.1715636980,A1_TPCQ_Pseu_78085:0.4420212140)61.1/62:0.1026519725,A1_TPCQ_Plan_65095:0.3090167591)89.8/61:0.0868965702,A1_TPCQ_Pate_41255:0.4854155360)90.1/63:0.0898228647,((A1_TPCQ_Plan_10975:0.1919791451,A1_TPCQ_Plan_72085:0.1857468833)99.2/100:0.2205994501,A1_TPCQ_Myxo_29365:0.3725133502)61/35:0.0371437870)66.5/53:0.1111650119,(A1_SPCQ_Plan_72085:0.0960834759,A1_SPCQ_Plan_00225:0.2247008412)99.9/100:0.4147647454)99.1/100:0.4032494812,(((SplitTRD_SPCQ_Baci_34735:0.1269263532,A1_SPCQ_Baci_24645:0.1371291369)96.7/99:0.2404201532,(A1_SPCQ_Baci_53025:0.0879839363,(A1_SPCT_Baci_73905:0.1177346837,A1_SPCT_Baci_01916:0.1742683833)93.8/97:0.1274852967)93.6/98:0.1967208561)99.8/100:0.5774312606,A1_SPCQ_Baci_09825:0.4518354729)77.2/76:0.1730098304)78.9/61:0.0415420299,(NOp1_FPCQ_Phg_EF536069:0.4091868143,(((NOp1_FPCQ_Phg_KU160660:0.0476575114,NOp1_FPCQ_Phg_MN234234:0.0380343650)97.8/93:0.1100997791,NOp1_FPCQ_Phg_MF185718:0.1274629743)60/62:0.0269935013,NOp1_FPCQ_Phg_MH744419:0.0976543784)100/100:1.0286356700)96.7/99:0.4175259871)69.6/63:0.0896234730,((((A2_UP_M_EaeI:0.2009698826,A2_GTDB_Thio_01135:0.2973472267)93.7/96:0.1966163652,A2_GTDB_Cyan_77528:0.8635583084)63.8/67:0.1070758362,(A1_FPCQ_JACP_92455:0.4402856746,A1_FPCQ_Chlo_20215:0.3850734942)96.1/91:0.2113812701)88/77:0.1323475004,(A1_FPCQ_Phg_AY129338:0.4441525087,NOp1_FPCQ_Phg_JN564907:1.8585987259)63.7/74:0.1594027846)92/85:0.1604131701)100/99:0.4614082640)38.7/48:0.0809171210,((((((NOp1_FPCQ_Phg_KC295538:0.1489217364,((NOp1_FPCQ_Phg_JN882285:0.0144824569,NOp1_FPCQ_Phg_KU574722:0.0616329725)96.8/99:0.0947778833,NOp1_SPCT_Phg_AB897757:0.2627627242)13.3/51:0.0562515695)98.2/95:0.1941184591,NOp1_FPCQ_Phg_MN062188:0.5076380229)99.1/100:0.2406806363,NOp1_SPCQ_Phg_FR775895:0.0784351050)95.7/98:0.2301107989,NOp1_SPCQ_Phg_KT990215:0.8161058018)84.2/74:0.1215963930,NOp1_SPCQ_Phg_KC821619:0.4691721372)87.9/64:0.0876577643,((NOp1_SPCQ_Phg_KC821620:0.4694854500,NOp1_SPCQ_Phg_KC821613:0.5107114477)87.8/83:0.1131480334,NOp1_SPCQ_Phg_AP013541:0.2329818493)71.6/61:0.0339483000)100/100:0.9520650800)86.6/86:0.4481459916);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -25298.987291
+Robinson-Foulds distance between ML tree and consensus tree: 60
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--------------------OUT_Human_DNMT1
+|
++------------------------OUT_Human_TRDMT1
+|
+|                                   +------OUT_Arch_M_MthTI
+|                              +----| (99)
+|                              |    +-----NOp1_SP_MTH3_HAEAE
+|              +---------------| (100)
+|              |               +---------NOp1_FPCQ_Phg_EU100883
++--------------| (86)
+               |                            +-----NOp1_SP_M_HhaI
+               |                      +-----| (91)
+               |                      |     |        +--NOp1_SP_EcoliDcm
+               |                      |     |  +-----| (100)
+               |                      |     |  |     +--NOp1_SP_M_EcoRII
+               |                      |     +--| (44)
+               |                      |        +--------NOp1_SP_MTM1_MORSP
+               |                   +--| (51)
+               |                   |  |     +--A1_FPCQ_Pate_41255
+               |                   |  |  +--| (94)
+               |                   |  |  |  +--A1_FPCQ_Pate_50355
+               |                   |  +--| (71)
+               |                   |     +-------A1_FPCQ_Arc_08045
+               |                +--| (30)
+               |                |  +-------A1_FPCQ_Arc_28495
+               |             +--| (6)
+               |             |  |     +---A1_FPCQ_Elus_72025
+               |             |  |  +--| (85)
+               |             |  |  |  +-----A1_FPCQ_Pate_56915
+               |             |  +--| (11)
+               |             |     +----------A1_FPCQ_Desu_83865
+               +-------------| (1)
+               |             +-------A1_FPCQ_Baci_48555
+               |
+               +-------------------------------------------NOp1_SP_M_SssI
+               |
+               |                +--A3_UP_A0A6N9NLZ4
+               |             +--| (99)
+               |             |  +--A3_UP_A0A0D5YPG6
+               |          +--| (98)
+               |          |  +--A3_UP_A0A255ZXG1
+               |       +--| (100)
+               |       |  +--A3_UP_A0A345HDU4
+               |    +--| (100)
+               |    |  |  +----A3_GTDB_Pseu_24145
+               |    |  +--| (97)
+               |    |     |  +--A3_GTDB_Cyan_99385
+               |    |     +--| (73)
+               |    |        +--A3_GTDB_Baci_78395
+               +----| (3)
+               |    |     +--A1_TPCQ_UP_W1J1U5
+               |    |  +--| (96)
+               |    |  |  +--A1_TPCQ_UP_A0A1Y2S7M7
+               |    +--| (99)
+               |       +--A1_TPCQ_UP_A0A068R437
+               |
+               |    +--A1_TPCQ_UP_A0A0J1C4Q1
+               +----| (58)
+               |    +--------A1_TPCQ_Pseu_68225
+               |
+               |           +------------NOp1_SP_MTBR_BPRH1
+               +-----------| (1)
+               |           |   +--A1_FPCQ_Pate_99755
+               |           +---| (100)
+               |               |  +--A1_FPCQ_Pate_63305
+               |               +--| (81)
+               |                  +--A1_FPCQ_Pate_99515
+               |
+               |                 +--A2_UP_M_EaeI
+               |              +--| (96)
+               |              |  +---A2_GTDB_Thio_01135
+               |           +--| (67)
+               |           |  +----------A2_GTDB_Cyan_77528
+               +-----------| (77)
+               |           |  +----A1_FPCQ_JACP_92455
+               |           +--| (91)
+               |              +----A1_FPCQ_Chlo_20215
+               |
+               |                 +--A1_FPCQ_Baci_86705
+               +-----------------| (99)
+               |                 |     +--A1_FPCQ_Baci_55375
+               |                 |  +--| (76)
+               |                 |  |  +--A1_FPCQ_Baci_80585
+               |                 +--| (75)
+               |                    |        +--A1_FPCQ_Phg_KY705251
+               |                    |     +--| (90)
+               |                    |     |  +--A1_FPCQ_Phg_FJ965538
+               |                    |  +--| (73)
+               |                    |  |  +--A1_FPCQ_Phg_AJ302074
+               |                    +--| (98)
+               |                       +--A1_FPCQ_Phg_KX550065
+               |
+               |               +--SplitTRD_SPCQ_Baci_34735
+               |            +--| (99)
+               |            |  +--A1_SPCQ_Baci_24645
+               |      +-----| (100)
+               |      |     |  +--A1_SPCQ_Baci_53025
+               |      |     +--| (98)
+               |      |        |  +--A1_SPCT_Baci_73905
+               |      |        +--| (97)
+               |      |           +--A1_SPCT_Baci_01916
+               +------| (76)
+               |      +------A1_SPCQ_Baci_09825
+               |
+               |     +---A1_TPCQ_Pate_04855
+               +-----| (12)
+               |     +--A1_TPCQ_Phg_AY349011
+               |
+               |        +---A1_TPCQ_Plan_65095
+               |     +--| (12)
+               |     |  |  +-----A1_TPCQ_Pate_41255
+               |     |  +--| (14)
+               |     |     |        +--A1_TPCQ_Plan_10975
+               |     |     |     +--| (100)
+               |     |     |     |  +--A1_TPCQ_Plan_72085
+               |     |     |  +--| (35)
+               |     |     |  |  +---A1_TPCQ_Myxo_29365
+               |     |     +--| (38)
+               |     |        |    +--A1_SPCQ_Plan_72085
+               |     |        +----| (100)
+               |     |             +--A1_SPCQ_Plan_00225
+               +-----| (2)
+               |     +----A1_TPCQ_Pseu_78085
+               |
+               |                  +----A1_FPCQ_Baci_54275
+               +------------------| (83)
+               |                  |  +------A1_SPCQ_Baci_62695
+               |                  +--| (63)
+               |                     +--A1_FPCQ_Baci_20305
+               |
+               +-------A1_TPCQ_Phg_OK499971
+               |
+               +--------A1_TPCQ_Phg_AF234172
+               |
+               +---------A1_TPCQ_Phg_MN692199
+               |
+               +-------------A1_TPCQ_Phg_MH588547
+               |
+               +------------------------A1_FPCQ_Phg_EU719189
+               |
+               |                       +--A1_FPCQ_Phg_MG252693
+               +-----------------------| (100)
+               |                       +--A1_FPCQ_Phg_KU052488
+               |
+               +----------------A1_FPCQ_Phg_AY129338
+               |
+               +--------------A1_FPCQ_Phg_JX100814
+               |
+               +----------------A1_FPCQ_Phg_JX100813
+               |
+               +--------------A1_FPCQ_Phg_MH588544
+               |
+               +---------------------------------NOp1_FPCQ_Phg_JN564907
+               |
+               |                           +--NOp1_FPCQ_Phg_KC295538
+               +---------------------------| (100)
+               |                           +---------NOp1_FPCQ_Phg_MN062188
+               |                           |
+               |                           +--NOp1_FPCQ_Phg_JN882285
+               |                           |
+               |                           +--NOp1_FPCQ_Phg_KU574722
+               |                           |
+               |                           +---NOp1_SPCT_Phg_AB897757
+               |
+               +--------------------------NOp1_FPCQ_Phg_KJ451625
+               |
+               +--------------NOp1_FPCQ_Phg_EF536069
+               |
+               |                         +--NOp1_FPCQ_Phg_KU160660
+               +-------------------------| (100)
+               |                         +--NOp1_FPCQ_Phg_MF185718
+               |                         |
+               |                         +--NOp1_FPCQ_Phg_MH744419
+               |                         |
+               |                         +--NOp1_FPCQ_Phg_MN234234
+               |
+               +---------------------------NOp1_SPCQ_Phg_KC821620
+               |
+               +---------------------------NOp1_SPCQ_Phg_AP019561
+               |
+               +-------------------------------NOp1_SPCQ_Phg_KC821613
+               |
+               +-------------------------------NOp1_SPCQ_Phg_KC821619
+               |
+               +---------------------------NOp1_SPCQ_Phg_FR775895
+               |
+               +-------------------------------NOp1_SPCQ_Phg_KT990215
+               |
+               +-----------------------------NOp1_SPCQ_Phg_GQ478086
+               |
+               +-----------------------NOp1_SPCQ_Phg_AP013541
+
+
+Consensus tree in newick format: 
+
+(OUT_Human_DNMT1:1.3797033873,OUT_Human_TRDMT1:1.6772370743,(((OUT_Arch_M_MthTI:0.4814638432,NOp1_SP_MTH3_HAEAE:0.4295776549)99:0.3434757478,NOp1_FPCQ_Phg_EU100883:0.6654140918)100:1.0667854111,(((((NOp1_SP_M_HhaI:0.4250590756,((NOp1_SP_EcoliDcm:0.1619409276,NOp1_SP_M_EcoRII:0.0669508180)100:0.4455687342,NOp1_SP_MTM1_MORSP:0.6084007457)44:0.1120528301)91:0.4417725378,((A1_FPCQ_Pate_41255:0.0880593217,A1_FPCQ_Pate_50355:0.0947911299)94:0.0754014589,A1_FPCQ_Arc_08045:0.5366919176)71:0.0377841519)51:0.0786032854,A1_FPCQ_Arc_28495:0.5201539129)30:0.0492946057,((A1_FPCQ_Elus_72025:0.2812824643,A1_FPCQ_Pate_56915:0.3921673128)85:0.1831113376,A1_FPCQ_Desu_83865:0.7411383339)11:0.0000022536)6:0.0380716105,A1_FPCQ_Baci_48555:0.5272768124)1:0.9129956053,NOp1_SP_M_SssI:2.8805125278,(((((A3_UP_A0A6N9NLZ4:0.0351813168,A3_UP_A0A0D5YPG6:0.0418774496)99:0.0955576555,A3_UP_A0A255ZXG1:0.0998173693)98:0.0376365544,A3_UP_A0A345HDU4:0.1222058317)100:0.1945077683,(A3_GTDB_Pseu_24145:0.3598027190,(A3_GTDB_Cyan_99385:0.1329351037,A3_GTDB_Baci_78395:0.1695922967)73:0.1124019077)97:0.1856581190)100:0.2412986697,((A1_TPCQ_UP_W1J1U5:0.0569056817,A1_TPCQ_UP_A0A1Y2S7M7:0.0645372931)96:0.0047175407,A1_TPCQ_UP_A0A068R437:0.0884937635)99:0.0894397857)3:0.3783633344,(A1_TPCQ_UP_A0A0J1C4Q1:0.1057246597,A1_TPCQ_Pseu_68225:0.6078879772)58:0.3591575364,(NOp1_SP_MTBR_BPRH1:0.8445554347,(A1_FPCQ_Pate_99755:0.0782164508,(A1_FPCQ_Pate_63305:0.0714098170,A1_FPCQ_Pate_99515:0.0880933599)81:0.0415448590)100:0.3010233600)1:0.7889229620,(((A2_UP_M_EaeI:0.1432863740,A2_GTDB_Thio_01135:0.2788460238)96:0.1723574378,A2_GTDB_Cyan_77528:0.7183031059)67:0.0663771628,(A1_FPCQ_JACP_92455:0.3577334920,A1_FPCQ_Chlo_20215:0.3521621959)91:0.1665603113)77:0.8260966388,(A1_FPCQ_Baci_86705:0.1110341319,((A1_FPCQ_Baci_55375:0.1490946444,A1_FPCQ_Baci_80585:0.1051478479)76:0.0391829430,(((A1_FPCQ_Phg_KY705251:0.2071210754,A1_FPCQ_Phg_FJ965538:0.0652917994)90:0.0614807898,A1_FPCQ_Phg_AJ302074:0.0411087607)73:0.0412146455,A1_FPCQ_Phg_KX550065:0.1041093878)98:0.1026836813)75:0.0559877603)99:1.1872481030,(((SplitTRD_SPCQ_Baci_34735:0.1000025907,A1_SPCQ_Baci_24645:0.1266850481)99:0.1880196954,(A1_SPCQ_Baci_53025:0.0659659928,(A1_SPCT_Baci_73905:0.0956577799,A1_SPCT_Baci_01916:0.1567568197)97:0.1224276351)98:0.1948652800)100:0.4167760033,A1_SPCQ_Baci_09825:0.5129836306)76:0.4969114711,(A1_TPCQ_Pate_04855:0.2717603590,A1_TPCQ_Phg_AY349011:0.1578940248)12:0.3962929450,((A1_TPCQ_Plan_65095:0.2757977825,(A1_TPCQ_Pate_41255:0.4264647011,(((A1_TPCQ_Plan_10975:0.1492853325,A1_TPCQ_Plan_72085:0.1760180581)100:0.2158140420,A1_TPCQ_Myxo_29365:0.2821622634)35:0.0394997128,(A1_SPCQ_Plan_72085:0.0729540171,A1_SPCQ_Plan_00225:0.2025733370)100:0.3847208010)38:0.0879437864)14:0.0584107133)12:0.0912844318,A1_TPCQ_Pseu_78085:0.3529492187)2:0.3891707533,(A1_FPCQ_Baci_54275:0.3249094421,(A1_SPCQ_Baci_62695:0.5033989710,A1_FPCQ_Baci_20305:0.2452919093)63:0.0848709822)83:1.2716836581,A1_TPCQ_Phg_OK499971:0.5353135914,A1_TPCQ_Phg_AF234172:0.6090046190,A1_TPCQ_Phg_MN692199:0.7042129558,A1_TPCQ_Phg_MH588547:0.9472788370,A1_FPCQ_Phg_EU719189:1.6382395000,(A1_FPCQ_Phg_MG252693:0.0682599537,A1_FPCQ_Phg_KU052488:0.0000022142)100:1.5877249868,A1_FPCQ_Phg_AY129338:1.1102861232,A1_FPCQ_Phg_JX100814:1.0185623741,A1_FPCQ_Phg_JX100813:1.1303462995,A1_FPCQ_Phg_MH588544:0.9736976002,NOp1_FPCQ_Phg_JN564907:2.2128295370,(NOp1_FPCQ_Phg_KC295538:0.2413920337,NOp1_FPCQ_Phg_MN062188:0.7013877537,NOp1_FPCQ_Phg_JN882285:0.0251287101,NOp1_FPCQ_Phg_KU574722:0.0501200091,NOp1_SPCT_Phg_AB897757:0.2992492258)100:1.8104943993,NOp1_FPCQ_Phg_KJ451625:1.7909571216,NOp1_FPCQ_Phg_EF536069:0.9796030758,(NOp1_FPCQ_Phg_KU160660:0.0455347911,NOp1_FPCQ_Phg_MF185718:0.1873249518,NOp1_FPCQ_Phg_MH744419:0.1862704820,NOp1_FPCQ_Phg_MN234234:0.0408317519)100:1.6935180811,NOp1_SPCQ_Phg_KC821620:1.8229821184,NOp1_SPCQ_Phg_AP019561:1.8426059913,NOp1_SPCQ_Phg_KC821613:2.0861337359,NOp1_SPCQ_Phg_KC821619:2.0982146882,NOp1_SPCQ_Phg_FR775895:1.8537146518,NOp1_SPCQ_Phg_KT990215:2.1019733413,NOp1_SPCQ_Phg_GQ478086:1.9593956401,NOp1_SPCQ_Phg_AP013541:1.5629295491)86:0.9973532044);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t tree1_nolb_iq.treefile -m "Q.pfam+R6{0.048817,0.010664,0.1688,0.2581,0.316632,0.614936,0.258559,1.10785,0.145352,1.8386,0.0618396,3.3557}" --length 185
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s tree1_no_longbranch_trimmed.afa --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s tree1_no_longbranch_trimmed.afa --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Fri Nov 27 13:01:45 2026
+Total CPU time used: 1018.420072 seconds (0h:16m:58s)
+Total wall-clock time used: 912.542434 seconds (0h:15m:12s)
+

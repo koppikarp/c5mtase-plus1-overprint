@@ -120,38 +120,39 @@ def reroot_on_outgroup(root, outgroup_pred):
         # Fallback: first outgroup leaf
         target = next(iter(og_leaves))
 
-    # Build adjacency graph of undirected edges
+    # Build adjacency graph preserving internal edge support labels
     adj = {}
 
-    def add_edge(u, v, w):
-        adj.setdefault(u, []).append((v, w))
-        adj.setdefault(v, []).append((u, w))
+    def add_edge(u, v, w, lbl):
+        adj.setdefault(u, []).append((v, w, lbl))
+        adj.setdefault(v, []).append((u, w, lbl))
 
     for n in all_nodes:
         for c in n.children:
-            add_edge(n, c, c.length)
+            add_edge(n, c, c.length, c.name if not c.is_leaf() else "")
 
     p = target.parent
     w = target.length
-    adj[p] = [(x, l) for x, l in adj[p] if x is not target]
-    adj[target] = [(x, l) for x, l in adj[target] if x is not p]
+    el = target.name if not target.is_leaf() else ""
+    adj[p] = [x for x in adj[p] if x[0] is not target]
+    adj[target] = [x for x in adj[target] if x[0] is not p]
 
     new_root = Node("ROOT", 0.0)
-    adj[new_root] = [(target, w / 2.0), (p, w / 2.0)]
-    adj[target].append((new_root, w / 2.0))
-    adj[p].append((new_root, w / 2.0))
+    adj[new_root] = [(target, w / 2.0, el), (p, w / 2.0, el)]
+    adj[target].append((new_root, w / 2.0, el))
+    adj[p].append((new_root, w / 2.0, el))
 
-    def rebuild(curr, prev, bl):
-        nn = Node(curr.name if curr.is_leaf() else curr.name, bl)
-        for nxt, nw in adj.get(curr, []):
+    def rebuild(curr, prev, bl, elbl):
+        nn = Node(curr.name if curr.is_leaf() else elbl, bl)
+        for nxt, nw, nlbl in adj.get(curr, []):
             if nxt is prev:
                 continue
-            ch = rebuild(nxt, curr, nw)
+            ch = rebuild(nxt, curr, nw, nlbl)
             ch.parent = nn
             nn.children.append(ch)
         return nn
 
-    r = rebuild(new_root, None, 0.0)
+    r = rebuild(new_root, None, 0.0, "")
     # Collapse degree-2 internal nodes (other than root)
     def collapse(n):
         new_ch = []
@@ -160,6 +161,8 @@ def reroot_on_outgroup(root, outgroup_pred):
             if len(c.children) == 1:
                 gc = c.children[0]
                 gc.length += c.length
+                if not gc.name and c.name:
+                    gc.name = c.name
                 gc.parent = n
                 new_ch.append(gc)
             else:
@@ -235,15 +238,24 @@ def plot_tree(ax, root, title, max_x_pad=0.42, font_sz=4.3, cap_bl=None):
             ls = "--" if (cap_bl is not None and c.is_leaf() and c.length > cap_bl) else "-"
             ax.plot([xn, xc], [yc, yc], color=col if c.is_leaf() else "#222222", lw=0.48, ls=ls, zorder=2)
             draw_node(c)
-        # SH support label for well-supported internal nodes
+        # IQ-TREE 2 SH-aLRT / UFBoot2 support label for well-supported internal nodes
         if n is not root and n.name:
-            try:
-                sh = float(n.name)
-                if sh >= 0.70:
-                    ax.text(xn - xmax * 0.008, yn + 0.18, f"{int(round(sh * 100))}",
-                            fontsize=3.5, ha="right", va="bottom", color="#555555", family="Arial")
-            except ValueError:
-                pass
+            if "/" in n.name:
+                try:
+                    sh_v, uf_v = [float(x) for x in n.name.split("/", 1)]
+                    if uf_v >= 70 or sh_v >= 80:
+                        ax.text(xn - xmax * 0.008, yn + 0.16, f"{int(round(sh_v))}/{int(round(uf_v))}",
+                                fontsize=3.25, ha="right", va="bottom", color="#555555", family="Arial")
+                except ValueError:
+                    pass
+            else:
+                try:
+                    sh = float(n.name)
+                    if sh >= 0.70:
+                        ax.text(xn - xmax * 0.008, yn + 0.18, f"{int(round(sh * 100))}",
+                                fontsize=3.5, ha="right", va="bottom", color="#555555", family="Arial")
+                except ValueError:
+                    pass
 
     draw_node(root)
     # Scale bar
@@ -257,19 +269,19 @@ def plot_tree(ax, root, title, max_x_pad=0.42, font_sz=4.3, cap_bl=None):
 
 
 def build_supp_fig1():
-    t1 = parse_newick((DATA / "phylogeny/tree1_frame0_cat_ml_lg.nwk").read_text())
+    t1 = parse_newick((DATA / "phylogeny/tree1_frame0_cat_iqtree.treefile").read_text())
     t1 = reroot_on_outgroup(t1, lambda nm: nm.startswith("OUT_Human_"))
-    t2 = parse_newick((DATA / "phylogeny/tree2_cslsdile_domain_ml_lg.nwk").read_text())
-    t2 = reroot_on_outgroup(t2, lambda nm: nm.startswith("A3_"))
+    t2 = parse_newick((DATA / "phylogeny/tree2_cslsdile_domain_iqtree.treefile").read_text())
+    t2 = reroot_on_outgroup(t2, lambda nm: nm.startswith("A3_") or nm == "A2_UP_A0A1I2_Paeni")
 
     plt.rcParams["font.family"] = "Arial"
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8.4, 9.8), gridspec_kw={"width_ratios": [1.14, 1.0]})
     fig.subplots_adjust(left=0.02, right=0.99, top=0.94, bottom=0.05, wspace=0.06)
 
-    plot_tree(ax1, t1, "a   Frame-0 C5-MTase ML tree (Tree 1, n = 97; SH ≥ 70%)",
-              max_x_pad=0.58, font_sz=4.15, cap_bl=1.8)
-    plot_tree(ax2, t2, "b   CSLSDILE/KYFLS ML tree (Tree 2, n = 67; SH ≥ 70%)",
-              max_x_pad=0.62, font_sz=4.35, cap_bl=2.2)
+    plot_tree(ax1, t1, "a   Frame-0 C5-MTase IQ-TREE 2 (Tree 1, n = 97, Q.pfam+R6)",
+              max_x_pad=0.58, font_sz=4.15, cap_bl=2.2)
+    plot_tree(ax2, t2, "b   CSLSDILE/KYFLS IQ-TREE 2 (Tree 2, n = 67, VT+G4)",
+              max_x_pad=0.62, font_sz=4.35, cap_bl=1.8)
 
     # Shared top legend
     handles = [
@@ -433,15 +445,24 @@ def build_supplement_tex():
         ("5-frame stop purge: Frame +1 vs.\\ all 4 other frames ($n=30$)", "Within-gene max 1-sided paired Wilcoxon", "Max $P$ across $+2, -0, -1, -2$", fmt_p(pv["stop_purge_within_gene_max_p_1s"])),
         ("Frame $-0$ shadowing: \\texttt{TTA}/\\texttt{CTA} vs.\\ \\texttt{TCA} ($n=30$)", "Exact paired Wilcoxon vs.\\ flanking null", "TTA/CTA 1.20 vs.\\ 3.24; TCA 1.20 vs.\\ 1.19", f"{fmt_p(pv['stop_purge_minus0_tta_cta_p_1s'])} / {fmt_p(pv['stop_purge_minus0_tca_p_2s'])}"),
         ("+1 AA preservation at Frame-0-divergent sites ($n=13$ vs.\\ 26)", "Gene-level 1-sided MWU (disjoint 6 vs.\\ 10)", f"{aa['gene_level']['case_median']*100:.1f}\\% vs.\\ {aa['gene_level']['ctrl_median']*100:.1f}\\% ({aa['disjoint_pairs']['case_median']*100:.1f}\\% vs.\\ {aa['disjoint_pairs']['ctrl_median']*100:.1f}\\%)", f"{fmt_p(pv['plus1_aa_preservation_gene_mwu_p'])} ({fmt_p(pv['plus1_aa_preservation_disjoint_mwu_p'])})"),
-        ("Phylogeny Tree 1: Arch 3 monophyly ($n=7$ taxa, 4 phyla)", "LG+$\\Gamma$, 100 thorough ML boot / SH", f"ML {ks['Arch3_monophyly_tree1']['ml_boot']:.0f}\\%, SH {ks['Arch3_monophyly_tree1']['sh']:.1f}\\%", "Drop-LB: ML 99\\%, SH 99.6\\%"),
-        ("Phylogeny Tree 1: TPCQ + Arch 3 superclade ($n=29$ taxa)", "LG+$\\Gamma$, 100 thorough ML boot / SH", f"ML {ks['TPCQ_Arch3_superclade_tree1']['ml_boot']:.0f}\\%, SH {ks['TPCQ_Arch3_superclade_tree1']['sh']:.1f}\\%", "Drop-LB: ML 95\\%, SH 100.0\\%"),
-        ("Phylogeny Tree 1: Arch 2 monophyly / parent clade ($n=3$ / 5)", "LG+$\\Gamma$, 100 thorough ML boot / SH", f"ML {ks['Arch2_monophyly_tree1']['ml_boot']:.0f}\\% / {ks['Arch2_parent_clade_tree1']['ml_boot']:.0f}\\%, SH {ks['Arch2_monophyly_tree1']['sh']:.1f}\\% / {ks['Arch2_parent_clade_tree1']['sh']:.1f}\\%", "Drop-LB: ML 61\\%, SH 83.0\\%"),
+        ("Phylogeny Tree 1: Arch 3 monophyly ($n=7$ taxa, 4 phyla)", "IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2)", f"SH {ks['Arch3_monophyly_tree1']['sh_alrt']:.1f}\\%, UFBoot {ks['Arch3_monophyly_tree1']['ufboot']:.0f}\\%", "Drop-LB: 98.7\\% / 100\\%"),
+        ("Phylogeny Tree 1: TPCQ + Arch 3 superclade ($n=29$ taxa)", "IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2)", f"SH {ks['TPCQ_Arch3_superclade_tree1']['sh_alrt']:.1f}\\%, UFBoot {ks['TPCQ_Arch3_superclade_tree1']['ufboot']:.0f}\\%", "Drop-LB: 99.1\\% / 100\\%"),
+        ("Phylogeny Tree 1: Arch 2 monophyly / parent clade ($n=3$ / 5)", "IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2)", f"SH {ks['Arch2_monophyly_tree1']['sh_alrt']:.1f}\\% / {ks['Arch2_parent_clade_tree1']['sh_alrt']:.1f}\\%, UF {ks['Arch2_monophyly_tree1']['ufboot']:.0f}\\% / {ks['Arch2_parent_clade_tree1']['ufboot']:.0f}\\%", "Drop-LB: 63.8\\% / 67\\%"),
+        ("Phylogeny Tree 1: Bacillota Split-TRD/IX/X in SPCQ ($n=6$)", "IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2)", f"SH {ks['Bacillota_SPCQ_SplitTRD_clade_tree1']['sh_alrt']:.1f}\\%, UFBoot {ks['Bacillota_SPCQ_SplitTRD_clade_tree1']['ufboot']:.0f}\\%", "Drop-LB: 77.2\\% / 76\\%"),
         ("Patristic congruence Tree 1 vs.\\ Tree 2 (all 66 shared taxa)", "Pearson $r$ / Spearman $\\rho$ (5,000 Mantel perms)", f"$r = {ms['all_shared']['pearson_r']:.3f}$, $\\rho = {ms['all_shared']['spearman_rho']:.3f}$", fmt_p(ms["all_shared"]["mantel_p_pearson"])),
         ("Patristic congruence excl.\\ long-branch outlier (65 taxa)", "Pearson $r$ / Spearman $\\rho$ (5,000 Mantel perms)", f"$r = {ms['all_shared_no_longbranch_outlier']['pearson_r']:.3f}$, $\\rho = {ms['all_shared_no_longbranch_outlier']['spearman_rho']:.3f}$", fmt_p(ms["all_shared_no_longbranch_outlier"]["mantel_p_pearson"])),
         ("Patristic congruence Arch 3 only (zero DNA overlap, $n=7$)", "Pearson $r$ / Spearman $\\rho$ (5,000 Mantel perms)", f"$r = {ms['arch3_only_zero_overlap']['pearson_r']:.3f}$, $\\rho = {ms['arch3_only_zero_overlap']['spearman_rho']:.3f}$", fmt_p(ms["arch3_only_zero_overlap"]["mantel_p_pearson"])),
         ("Patristic congruence Arch 1 vs.\\ Arch 3 cross-pairs ($n=385$)", "Pearson $r$ / Spearman $\\rho$ (5,000 Mantel perms)", f"$r = {ms['arch1_vs_arch3_cross']['pearson_r']:.3f}$, $\\rho = {ms['arch1_vs_arch3_cross']['spearman_rho']:.3f}$", fmt_p(ms["arch1_vs_arch3_cross"]["mantel_p_pearson"])),
     ]
     t4_lines = "\n".join(f"{a} & {b} & {c} & {d} \\\\" for a, b, c, d in t4_rows)
+    au_rows = []
+    for h in phy["au_topology_tests"]["hypotheses"]:
+        verdict = "\\textbf{Rejected}" if h["rejected"] else "\\textbf{Supported}"
+        au_rows.append(
+            f"{esc(h['label'])} & {h['logl']:.2f} & {h['delta_logl']:.2f} & {h['bp_rell']:.4f} & "
+            f"{h['p_kh']:.4f} & {h['p_sh']:.4f} & {fmt_p(h['c_elw'])} & {fmt_p(h['p_au'])} & {verdict} \\\\"
+        )
+    au_lines = "\n".join(au_rows)
 
     # Table S5: Per-model AF3 benchmark (all 30 models)
     nice_af3 = {
@@ -536,24 +557,23 @@ Repository and raw datasets: \url{{https://github.com/koppikarp/c5mtase-plus1-ov
 
 \section*{{Contents}}
 \begin{{itemize}}
-  \item \textbf{{Supplementary Figure S1:}} Full uncollapsed maximum-likelihood phylogenies of Frame-0 C5-MTases (Tree 1, $n=97$ taxa) and the CSLSDILE/KYFLS domain (Tree 2, $n=67$ taxa).
+  \item \textbf{{Supplementary Figure S1:}} Full uncollapsed IQ-TREE 2 maximum-likelihood phylogenies of Frame-0 C5-MTases (Tree 1, $n=97$ taxa, \texttt{{Q.pfam+R6}}) and the CSLSDILE/KYFLS domain (Tree 2, $n=67$ taxa, \texttt{{VT+G4}}).
   \item \textbf{{Supplementary Table S1:}} Complete census of all 45 verified GTDB R232 loci across 13 prokaryotic phyla.
   \item \textbf{{Supplementary Table S2:}} Complete census of all 39 INPHARED bacteriophage C5-MTase +1 loci and dereplicated prevalence.
   \item \textbf{{Supplementary Table S3:}} UniRef100/UniProtKB database erasure audit ($n=33$) and DNA-level reading-frame audit of UniProt TPCQ entries ($n=6$).
-  \item \textbf{{Supplementary Table S4:}} Complete summary of evolutionary selection, stop-purging, phylogenetic support, Mantel congruence, and sensitivity checks.
+  \item \textbf{{Supplementary Table S4:}} Complete summary of evolutionary selection, stop-purging, IQ-TREE 2 phylogenetic support, AU topology tests, Mantel congruence, and sensitivity checks.
   \item \textbf{{Supplementary Table S5:}} Per-model AlphaFold 3 benchmark across all 30 diffusion models (6 complexes $\times$ 5 models).
 \end{{itemize}}
 
 \newpage
 \section*{{Supplementary Figure S1}}
-\begin{{figure}}[!htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.81\textheight,keepaspectratio]{{figures/rendered/supp_fig1_full_trees.pdf}}
-  \par\vspace{{6pt}}
-  \noindent\begin{{minipage}}{{\textwidth}}\footnotesize\raggedright
-  \textbf{{Supplementary Figure S1. Full uncollapsed maximum-likelihood phylogenies supporting Figure 3.}} \textbf{{a}}, Complete DNMT1/TRDMT1-rooted LG+$\Gamma$ ML phylogeny of the Frame-0 C5-MTase catalytic core (Tree 1; 97 unique non-redundant taxa, 185 MAFFT L-INS-i columns). The extreme long-branch taxon \texttt{{A1\_SPCT\_Baci\_10645}} (branch length 3.77) is truncated visually with a dashed branch and annotated with its true length; removing this taxon in sensitivity re-inference (96 taxa, 100 thorough ML bootstraps) yields Arch 3 monophyly ML 99\% / SH 99.6\% and TPCQ+Arch 3 superclade ML 95\% / SH 100.0\%. \textbf{{b}}, Complete harmonized LG+$\Gamma$ ML phylogeny of the CSLSDILE/KYFLS domain (Tree 2; 67 taxa, 77 trimmed columns), rooted on the monophyletic Arch 3 C-terminal fusion clade for display. Numbers at internal nodes show SH-like local support values ($\ge 70\%$).
-  \end{{minipage}}
-\end{{figure}}
+\begin{{center}}
+  \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{{figures/rendered/supp_fig1_full_trees.pdf}}
+\end{{center}}
+\vspace{{2pt}}
+\noindent\begin{{minipage}}{{\textwidth}}\footnotesize\raggedright
+\textbf{{Supplementary Figure S1. Full uncollapsed IQ-TREE 2 maximum-likelihood phylogenies supporting Figure 3.}} \textbf{{a}}, Complete DNMT1/TRDMT1-rooted \texttt{{Q.pfam+R6}} ML phylogeny of the Frame-0 C5-MTase catalytic core (Tree 1; 97 unique non-redundant taxa, 185 MAFFT L-INS-i columns). The extreme long-branch taxon \texttt{{A1\_SPCT\_Baci\_10645}} (branch length 3.46) is truncated visually with a dashed branch and annotated with its true length; removing this taxon in sensitivity re-inference (96 taxa, \texttt{{Q.pfam+R6}}) yields Arch 3 monophyly SH-aLRT 98.7\% / UFBoot2 100\% and TPCQ+Arch 3 superclade SH-aLRT 99.1\% / UFBoot2 100\%. \textbf{{b}}, Complete harmonized \texttt{{VT+G4}} ML phylogeny of the CSLSDILE/KYFLS domain (Tree 2; 67 taxa, 77 trimmed columns), rooted on the Arch 3 clade for display (note that the single non-shared long-branch taxon \texttt{{A2\_UP\_A0A1I2\_Paeni}}, bl 2.16, clusters with Arch 3 via long-branch attraction in the 77-aa alignment; 8-taxon clade SH-aLRT 96.5\% / UFBoot2 90\%). Internal node labels report SH-aLRT / UFBoot2 (\texttt{{-bnni}}) support values where SH-aLRT $\ge 80\%$ or UFBoot2 $\ge 70\%$.
+\end{{minipage}}
 
 \newpage
 \section*{{Supplementary Table S1: Complete Census of All 45 Verified GTDB R232 Loci}}
@@ -629,8 +649,10 @@ Repository and raw datasets: \url{{https://github.com/koppikarp/c5mtase-plus1-ov
 }}
 
 \newpage
-\section*{{Supplementary Table S4: Evolutionary Selection, Phylogenetic Support, and Sensitivity Audit}}
-{{\scriptsize\setlength{{\tabcolsep}}{{3.5pt}}\renewcommand{{\arraystretch}}{{1.15}}
+\section*{{Supplementary Table S4: Evolutionary Selection, Phylogenetic Support, and AU Topology Tests}}
+\noindent{{\footnotesize\textbf{{Table S4a.}} Summary of 4D synonymous conservation, 5-frame stop purging, IQ-TREE 2 clade support (1,000 SH-aLRT / 1,000 UFBoot2 with \texttt{{-bnni}}), Mantel congruence, and drop-long-branch sensitivity checks.\par}}
+\vspace{{3pt}}
+{{\scriptsize\setlength{{\tabcolsep}}{{3.5pt}}\renewcommand{{\arraystretch}}{{1.12}}
 \begin{{longtable}}{{@{{}}p{{0.31\textwidth}}p{{0.25\textwidth}}p{{0.24\textwidth}}p{{0.15\textwidth}}@{{}}}}
 \toprule
 \textbf{{Analysis / Cohort}} & \textbf{{Statistical Test / Model}} & \textbf{{Observed Effect}} & \textbf{{$P$-value / Check}} \\
@@ -643,6 +665,21 @@ Repository and raw datasets: \url{{https://github.com/koppikarp/c5mtase-plus1-ov
 \bottomrule
 \endfoot
 {t4_lines}
+\end{{longtable}}
+}}
+
+\vspace{{6pt}}
+\noindent{{\footnotesize\textbf{{Table S4b.}} Approximately Unbiased (AU) topology tests on Tree 1 (97 taxa, \texttt{{Q.pfam+R6}}, 10,000 RELL resamplings in IQ-TREE 2) comparing the unconstrained ML tree against constrained alternative evolutionary hypotheses.\par}}
+\vspace{{3pt}}
+{{\scriptsize\setlength{{\tabcolsep}}{{2.8pt}}\renewcommand{{\arraystretch}}{{1.12}}
+\begin{{longtable}}{{@{{}}lrrrrrrrr@{{}}}}
+\toprule
+\textbf{{Topology Hypothesis}} & \textbf{{$\ln L$}} & \textbf{{$\Delta\ln L$}} & \textbf{{bp-RELL}} & \textbf{{$p$-KH}} & \textbf{{$p$-SH}} & \textbf{{c-ELW}} & \textbf{{$p$-AU}} & \textbf{{Result}} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+{au_lines}
 \end{{longtable}}
 }}
 

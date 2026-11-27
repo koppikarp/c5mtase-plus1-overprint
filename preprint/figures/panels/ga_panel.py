@@ -120,4 +120,4 @@ def draw(fig):
     ax.plot([16.30, 16.55], [2.09, 2.09], lw=1.2, color=PAL["ink"], zorder=4)
     ax.text(15.80, 2.09, "R290", ha="center", va="center", fontsize=5.8, fontweight="bold", color="white", zorder=4)
     ax.text(17.05, 2.09, "Y411", ha="center", va="center", fontsize=5.8, fontweight="bold", color="white", zorder=4)
-    ax.text(16.42, 1.12, "Cis monomer lock\n4.02 Å (ML 97%)", ha="center", va="center", fontsize=5.8, color=PAL["ink"], zorder=4)
+    ax.text(16.42, 1.12, "Cis monomer lock\n4.02 Å (UFBoot 98%)", ha="center", va="center", fontsize=5.8, color=PAL["ink"], zorder=4)

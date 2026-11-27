@@ -26,10 +26,10 @@ def draw(fig):
         ax.scatter(xs, ys, s=sz, color=col, alpha=alp, edgecolors="none", label=lbl, rasterized=False)
 
     all_x, all_y = np.array(all_x), np.array(all_y)
-    # Fit trend line on main distribution (excluding extreme bl=3.77 outlier pairs for clean visual slope)
-    mask_main = all_x < 4.5
+    # Fit trend line on main distribution (excluding extreme bl=3.46 outlier pairs for clean visual slope)
+    mask_main = all_x < 5.5
     m, b = np.polyfit(all_x[mask_main], all_y[mask_main], 1)
-    xg = np.linspace(0, min(max(all_x), 4.6), 50)
+    xg = np.linspace(0, min(max(all_x), 5.6), 50)
     ax.plot(xg, m * xg + b, ls="--", lw=1.0, color=PAL["ink"], zorder=5)
 
     p_all = d["mantel_p_5000perms"]
@@ -46,6 +46,6 @@ def draw(fig):
 
     ax.set_xlabel("Frame-0 patristic distance (Tree 1)", fontsize=6.4)
     ax.set_ylabel("CSLSDILE/KYFLS distance (Tree 2)", fontsize=6.4)
-    ax.set_xlim(-0.1, 5.2)
-    ax.set_ylim(-0.1, max(all_y) * 1.08)
+    ax.set_xlim(-0.15, max(all_x) * 1.05)
+    ax.set_ylim(-0.15, max(all_y) * 1.12)
     ax.legend(frameon=False, fontsize=5.1, loc="lower right", markerscale=1.05, handletextpad=0.3, labelspacing=0.20)

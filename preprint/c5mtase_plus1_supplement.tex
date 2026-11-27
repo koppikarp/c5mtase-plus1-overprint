@@ -59,24 +59,23 @@ Repository and raw datasets: \url{https://github.com/koppikarp/c5mtase-plus1-ove
 
 \section*{Contents}
 \begin{itemize}
-  \item \textbf{Supplementary Figure S1:} Full uncollapsed maximum-likelihood phylogenies of Frame-0 C5-MTases (Tree 1, $n=97$ taxa) and the CSLSDILE/KYFLS domain (Tree 2, $n=67$ taxa).
+  \item \textbf{Supplementary Figure S1:} Full uncollapsed IQ-TREE 2 maximum-likelihood phylogenies of Frame-0 C5-MTases (Tree 1, $n=97$ taxa, \texttt{Q.pfam+R6}) and the CSLSDILE/KYFLS domain (Tree 2, $n=67$ taxa, \texttt{VT+G4}).
   \item \textbf{Supplementary Table S1:} Complete census of all 45 verified GTDB R232 loci across 13 prokaryotic phyla.
   \item \textbf{Supplementary Table S2:} Complete census of all 39 INPHARED bacteriophage C5-MTase +1 loci and dereplicated prevalence.
   \item \textbf{Supplementary Table S3:} UniRef100/UniProtKB database erasure audit ($n=33$) and DNA-level reading-frame audit of UniProt TPCQ entries ($n=6$).
-  \item \textbf{Supplementary Table S4:} Complete summary of evolutionary selection, stop-purging, phylogenetic support, Mantel congruence, and sensitivity checks.
+  \item \textbf{Supplementary Table S4:} Complete summary of evolutionary selection, stop-purging, IQ-TREE 2 phylogenetic support, AU topology tests, Mantel congruence, and sensitivity checks.
   \item \textbf{Supplementary Table S5:} Per-model AlphaFold 3 benchmark across all 30 diffusion models (6 complexes $\times$ 5 models).
 \end{itemize}
 
 \newpage
 \section*{Supplementary Figure S1}
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.81\textheight,keepaspectratio]{figures/rendered/supp_fig1_full_trees.pdf}
-  \par\vspace{6pt}
-  \noindent\begin{minipage}{\textwidth}\footnotesize\raggedright
-  \textbf{Supplementary Figure S1. Full uncollapsed maximum-likelihood phylogenies supporting Figure 3.} \textbf{a}, Complete DNMT1/TRDMT1-rooted LG+$\Gamma$ ML phylogeny of the Frame-0 C5-MTase catalytic core (Tree 1; 97 unique non-redundant taxa, 185 MAFFT L-INS-i columns). The extreme long-branch taxon \texttt{A1\_SPCT\_Baci\_10645} (branch length 3.77) is truncated visually with a dashed branch and annotated with its true length; removing this taxon in sensitivity re-inference (96 taxa, 100 thorough ML bootstraps) yields Arch 3 monophyly ML 99\% / SH 99.6\% and TPCQ+Arch 3 superclade ML 95\% / SH 100.0\%. \textbf{b}, Complete harmonized LG+$\Gamma$ ML phylogeny of the CSLSDILE/KYFLS domain (Tree 2; 67 taxa, 77 trimmed columns), rooted on the monophyletic Arch 3 C-terminal fusion clade for display. Numbers at internal nodes show SH-like local support values ($\ge 70\%$).
-  \end{minipage}
-\end{figure}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/rendered/supp_fig1_full_trees.pdf}
+\end{center}
+\vspace{2pt}
+\noindent\begin{minipage}{\textwidth}\footnotesize\raggedright
+\textbf{Supplementary Figure S1. Full uncollapsed IQ-TREE 2 maximum-likelihood phylogenies supporting Figure 3.} \textbf{a}, Complete DNMT1/TRDMT1-rooted \texttt{Q.pfam+R6} ML phylogeny of the Frame-0 C5-MTase catalytic core (Tree 1; 97 unique non-redundant taxa, 185 MAFFT L-INS-i columns). The extreme long-branch taxon \texttt{A1\_SPCT\_Baci\_10645} (branch length 3.46) is truncated visually with a dashed branch and annotated with its true length; removing this taxon in sensitivity re-inference (96 taxa, \texttt{Q.pfam+R6}) yields Arch 3 monophyly SH-aLRT 98.7\% / UFBoot2 100\% and TPCQ+Arch 3 superclade SH-aLRT 99.1\% / UFBoot2 100\%. \textbf{b}, Complete harmonized \texttt{VT+G4} ML phylogeny of the CSLSDILE/KYFLS domain (Tree 2; 67 taxa, 77 trimmed columns), rooted on the Arch 3 clade for display (note that the single non-shared long-branch taxon \texttt{A2\_UP\_A0A1I2\_Paeni}, bl 2.16, clusters with Arch 3 via long-branch attraction in the 77-aa alignment; 8-taxon clade SH-aLRT 96.5\% / UFBoot2 90\%). Internal node labels report SH-aLRT / UFBoot2 (\texttt{-bnni}) support values where SH-aLRT $\ge 80\%$ or UFBoot2 $\ge 70\%$.
+\end{minipage}
 
 \newpage
 \section*{Supplementary Table S1: Complete Census of All 45 Verified GTDB R232 Loci}
@@ -271,8 +270,10 @@ A0A1I2CIH5 & A0A1I2CIH5\_9BACL & Paenibacillus algorifonticola (Arch 2 +1 beta s
 }
 
 \newpage
-\section*{Supplementary Table S4: Evolutionary Selection, Phylogenetic Support, and Sensitivity Audit}
-{\scriptsize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.15}
+\section*{Supplementary Table S4: Evolutionary Selection, Phylogenetic Support, and AU Topology Tests}
+\noindent{\footnotesize\textbf{Table S4a.} Summary of 4D synonymous conservation, 5-frame stop purging, IQ-TREE 2 clade support (1,000 SH-aLRT / 1,000 UFBoot2 with \texttt{-bnni}), Mantel congruence, and drop-long-branch sensitivity checks.\par}
+\vspace{3pt}
+{\scriptsize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.12}
 \begin{longtable}{@{}p{0.31\textwidth}p{0.25\textwidth}p{0.24\textwidth}p{0.15\textwidth}@{}}
 \toprule
 \textbf{Analysis / Cohort} & \textbf{Statistical Test / Model} & \textbf{Observed Effect} & \textbf{$P$-value / Check} \\
@@ -296,13 +297,33 @@ A0A1I2CIH5 & A0A1I2CIH5\_9BACL & Paenibacillus algorifonticola (Arch 2 +1 beta s
 5-frame stop purge: Frame +1 vs.\ all 4 other frames ($n=30$) & Within-gene max 1-sided paired Wilcoxon & Max $P$ across $+2, -0, -1, -2$ & $1.03 \times 10^{-4}$ \\
 Frame $-0$ shadowing: \texttt{TTA}/\texttt{CTA} vs.\ \texttt{TCA} ($n=30$) & Exact paired Wilcoxon vs.\ flanking null & TTA/CTA 1.20 vs.\ 3.24; TCA 1.20 vs.\ 1.19 & $9.12 \times 10^{-6}$ / 0.9732 \\
 +1 AA preservation at Frame-0-divergent sites ($n=13$ vs.\ 26) & Gene-level 1-sided MWU (disjoint 6 vs.\ 10) & 18.4\% vs.\ 10.7\% (18.7\% vs.\ 10.4\%) & $2.40 \times 10^{-6}$ (0.0037) \\
-Phylogeny Tree 1: Arch 3 monophyly ($n=7$ taxa, 4 phyla) & LG+$\Gamma$, 100 thorough ML boot / SH & ML 97\%, SH 99.5\% & Drop-LB: ML 99\%, SH 99.6\% \\
-Phylogeny Tree 1: TPCQ + Arch 3 superclade ($n=29$ taxa) & LG+$\Gamma$, 100 thorough ML boot / SH & ML 95\%, SH 89.8\% & Drop-LB: ML 95\%, SH 100.0\% \\
-Phylogeny Tree 1: Arch 2 monophyly / parent clade ($n=3$ / 5) & LG+$\Gamma$, 100 thorough ML boot / SH & ML 62\% / 77\%, SH 81.5\% / 91.9\% & Drop-LB: ML 61\%, SH 83.0\% \\
-Patristic congruence Tree 1 vs.\ Tree 2 (all 66 shared taxa) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.563$, $\rho = 0.606$ & $2.00 \times 10^{-4}$ \\
-Patristic congruence excl.\ long-branch outlier (65 taxa) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.674$, $\rho = 0.664$ & $2.00 \times 10^{-4}$ \\
-Patristic congruence Arch 3 only (zero DNA overlap, $n=7$) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.749$, $\rho = 0.716$ & $4.00 \times 10^{-4}$ \\
-Patristic congruence Arch 1 vs.\ Arch 3 cross-pairs ($n=385$) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.328$, $\rho = 0.391$ & 0.0010 \\
+Phylogeny Tree 1: Arch 3 monophyly ($n=7$ taxa, 4 phyla) & IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2) & SH 93.5\%, UFBoot 98\% & Drop-LB: 98.7\% / 100\% \\
+Phylogeny Tree 1: TPCQ + Arch 3 superclade ($n=29$ taxa) & IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2) & SH 99.5\%, UFBoot 100\% & Drop-LB: 99.1\% / 100\% \\
+Phylogeny Tree 1: Arch 2 monophyly / parent clade ($n=3$ / 5) & IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2) & SH 59.9\% / 88.3\%, UF 65\% / 69\% & Drop-LB: 63.8\% / 67\% \\
+Phylogeny Tree 1: Bacillota Split-TRD/IX/X in SPCQ ($n=6$) & IQ-TREE 2 Q.pfam+R6 (SH-aLRT / UFBoot2) & SH 78.7\%, UFBoot 75\% & Drop-LB: 77.2\% / 76\% \\
+Patristic congruence Tree 1 vs.\ Tree 2 (all 66 shared taxa) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.592$, $\rho = 0.638$ & $2.00 \times 10^{-4}$ \\
+Patristic congruence excl.\ long-branch outlier (65 taxa) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.700$, $\rho = 0.696$ & $2.00 \times 10^{-4}$ \\
+Patristic congruence Arch 3 only (zero DNA overlap, $n=7$) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.722$, $\rho = 0.657$ & $4.00 \times 10^{-4}$ \\
+Patristic congruence Arch 1 vs.\ Arch 3 cross-pairs ($n=385$) & Pearson $r$ / Spearman $\rho$ (5,000 Mantel perms) & $r = 0.320$, $\rho = 0.409$ & 0.0010 \\
+\end{longtable}
+}
+
+\vspace{6pt}
+\noindent{\footnotesize\textbf{Table S4b.} Approximately Unbiased (AU) topology tests on Tree 1 (97 taxa, \texttt{Q.pfam+R6}, 10,000 RELL resamplings in IQ-TREE 2) comparing the unconstrained ML tree against constrained alternative evolutionary hypotheses.\par}
+\vspace{3pt}
+{\scriptsize\setlength{\tabcolsep}{2.8pt}\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}lrrrrrrrr@{}}
+\toprule
+\textbf{Topology Hypothesis} & \textbf{$\ln L$} & \textbf{$\Delta\ln L$} & \textbf{bp-RELL} & \textbf{$p$-KH} & \textbf{$p$-SH} & \textbf{c-ELW} & \textbf{$p$-AU} & \textbf{Result} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Unconstrained ML (Arch 1 ancestral; Arch 2 \& 3 derived) & -22819.94 & 0.00 & 0.9750 & 0.9850 & 1.0000 & 0.9750 & 0.9930 & \textbf{Supported} \\
+Arch 3 C-terminal fusions basal & -22873.14 & 53.20 & 0.0024 & 0.0042 & 0.0471 & 0.0025 & 0.0049 & \textbf{Rejected} \\
+Arch 2 split-Motif-IX basal & -22861.05 & 41.11 & 0.0142 & 0.0154 & 0.1420 & 0.0145 & 0.0224 & \textbf{Rejected} \\
+Arch 2 + Arch 3 monophyletic & -22991.13 & 171.19 & 0.0000 & 0.0000 & 0.0000 & $7.43 \times 10^{-31}$ & $5.19 \times 10^{-89}$ & \textbf{Rejected} \\
+All +1/CSLSDILE taxa monophyletic & -22891.26 & 71.32 & 0.0082 & 0.0107 & 0.0277 & 0.0083 & 0.0132 & \textbf{Rejected} \\
 \end{longtable}
 }
 
